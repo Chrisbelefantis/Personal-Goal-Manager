@@ -1,0 +1,11 @@
+.GoalsPanel {
+    box-sizing: border-box;
+    width: 75%;
+    padding: 20px;
+    margin: 15px auto;
+    border: 5px solid rgb(77, 109, 154,0.3);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+
+}

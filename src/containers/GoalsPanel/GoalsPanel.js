@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import classes from './GoalsPanel.module.css'
-import GoalCategory from '../../hoc/GoalCategory/GoalCategory';
 import GoalSet from '../../components/GoalDisplay/GoalSet/GoalSet'
 
 class GoalsPanel extends Component {
@@ -37,14 +36,14 @@ class GoalsPanel extends Component {
                 content: [
                     {
                         title: "Finish Project Review",
-                        isChecked: true,
+                        isChecked: false,
                         isExpanded: false,
                         id:4
                     }
                     ,
                     {
                         title: "Start React Project",
-                        isChecked: true,
+                        isChecked: false,
                         isExpanded: false,
                         id:5
                     }
@@ -73,8 +72,6 @@ class GoalsPanel extends Component {
         
         this.setState({
             categories: categories
-        },()=>{
-            console.log(this.state);
         });
    
 
@@ -84,15 +81,16 @@ class GoalsPanel extends Component {
 
     render(){
     
-        let content =  this.state.categories.map(categ=>{
-            let categoryTitle = categ.title;
-
+        let content =  this.state.categories.map(categ=>{ 
             return (
-                <GoalCategory key = {categ.title} title={categoryTitle}>
-                    <GoalSet goals = {categ.content}/>
-                </GoalCategory>
+                    <GoalSet 
+                    key = {categ.title}
+                    category = {categ.title}
+                    goals = {categ.content}
+                    checked={this.goalCheckToggle}/>
                 );
         });
+
 
         return(
             <div className={classes.GoalsPanel}>

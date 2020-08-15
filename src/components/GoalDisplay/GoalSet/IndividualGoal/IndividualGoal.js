@@ -6,7 +6,7 @@ const individualGoal = (props)=>(
 
 
     <div className={classes.IndividualGoal}>
-        <CheckBox/>
+        <CheckBox click = {props.toggleCheck} checked = {props.checked}/>
         <p>{props.goalTitle}</p>
     </div>
 

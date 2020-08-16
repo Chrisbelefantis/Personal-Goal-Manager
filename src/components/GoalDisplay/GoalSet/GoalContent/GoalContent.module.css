@@ -1,0 +1,12 @@
+.Collapse{
+    background-color: #E7EFF2;
+    border-radius: 10px;
+    transform: translateY(-10px);
+    position: relative;
+    z-index: 100;
+    transition: all 0.3s ease-out;
+}
+
+.Content{
+    padding: 20px 10px 10px 10px;
+}

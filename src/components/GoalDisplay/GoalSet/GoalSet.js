@@ -1,5 +1,4 @@
 import React from 'react'
-import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import GoalCategory from '../../../hoc/GoalCategory/GoalCategory'
 import IndividualGoal from './IndividualGoal/IndividualGoal';
 
@@ -13,7 +12,9 @@ const goalSet =(props)=>{
             key = {goal.id} 
             goalTitle = {goal.title}
             checked = {goal.isChecked}
-            toggleCheck = {()=>props.checked(props.category,goal.id)}/>
+            expanded = {goal.isExpanded}
+            toggleCheck = {()=>props.checked(props.category,goal.id)}
+            toogleContent={()=>props.expanded(props.category,goal.id)}/>
         );
     })
 

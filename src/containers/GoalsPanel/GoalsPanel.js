@@ -77,6 +77,26 @@ class GoalsPanel extends Component {
 
     };
 
+    goalExpandToggle=(category,id)=>{
+
+        let categoryIndex = this.state.categories.findIndex(categ=>{
+            return categ.title === category
+        });
+     
+        let goalIndex = this.state.categories[categoryIndex].content.findIndex(goal=>{
+            return goal.id === id
+        });
+
+        let categories = [...this.state.categories];
+
+        categories[categoryIndex].content[goalIndex].isExpanded = !categories[categoryIndex].content[goalIndex].isExpanded
+        
+        this.setState({
+            categories: categories
+        });
+
+
+    }
 
 
     render(){
@@ -87,7 +107,8 @@ class GoalsPanel extends Component {
                     key = {categ.title}
                     category = {categ.title}
                     goals = {categ.content}
-                    checked={this.goalCheckToggle}/>
+                    checked={this.goalCheckToggle}
+                    expanded={this.goalExpandToggle}/>
                 );
         });
 

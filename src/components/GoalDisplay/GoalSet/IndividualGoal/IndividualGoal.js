@@ -1,16 +1,27 @@
-import React from 'react'
-import CheckBox from '../../../UI/CheckBox/CheckBox'
-import classes from './IndividualGoal.module.css'
+import React from 'react';
+import GoalHeading from '../GoalHeading/GoalHeading';
+import GoalContent from '../GoalContent/GoalContent';
+import Aux from '../../../../hoc/Auxiliary/Auxiliary'
 
-const individualGoal = (props)=>(
+const individualGoal = (props)=>{
+
+    
+    return(
+
+        <Aux>
+            <GoalHeading
+            lineThrough = {props.checked}
+            changeCheck = {props.toggleCheck}
+            changeContentVisibility = {props.toogleContent} 
+            contentDisplayed = {props.expanded}
+            title = {props.goalTitle}/>
+            <GoalContent
+            visible={props.expanded}/>
+        </Aux>
+
+    );
 
 
-    <div className={classes.IndividualGoal}>
-        <CheckBox click = {props.toggleCheck} checked = {props.checked}/>
-        <p>{props.goalTitle}</p>
-    </div>
-
-
-);
+};
 
 export default individualGoal;

@@ -1,5 +1,6 @@
 import React from 'react'
 import classes from './GoalHeading.module.css'
+import ClickableDiv from '../../../../hoc/ClickableDiv/ClickableDiv'
 import CheckBox from '../../../UI/CheckBox/CheckBox'
 
 const goalHeading =(props)=>{
@@ -13,11 +14,13 @@ const goalHeading =(props)=>{
     }
     
     return(
-        <div 
-        className={goalClasses.join(' ')}>
+        <div className={goalClasses.join(' ')}>
             <CheckBox click = {props.changeCheck} checked = {props.lineThrough}/>
-            <p  onClick={props.changeContentVisibility}>{props.title}</p>
+            <ClickableDiv  click = {props.changeContentVisibility}>
+                <p>{props.title}</p>
+            </ClickableDiv>
             {props.children}
+           
         </div>
     );
 }

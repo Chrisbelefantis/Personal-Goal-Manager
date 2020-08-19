@@ -1,0 +1,22 @@
+.SideDrawer{
+    height: 100%;
+    width: 150px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;    
+    background-color: white;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in;
+    z-index: 500;
+
+}
+
+
+.Open {
+    transform: translateX(0);
+}
+
+
+

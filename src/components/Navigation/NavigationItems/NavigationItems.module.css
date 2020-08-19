@@ -4,6 +4,16 @@
     padding: 0;
     list-style: none;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-items: end;
+}
+
+
+
+@media only screen and (min-width: 600px) {
+    .NavigationItems{
+        flex-direction: row;
+    }
+
+
 }

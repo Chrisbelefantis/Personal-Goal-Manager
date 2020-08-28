@@ -1,57 +1,13 @@
-import React, { Component } from 'react'
-import classes from './GoalsPanel.module.css'
-import GoalSet from '../../components/GoalDisplay/GoalSet/GoalSet'
+import React, { Component } from 'react';
+import classes from './GoalsPanel.module.css';
+import GoalSet from '../../components/GoalDisplay/GoalSet/GoalSet';
+import axios from '../../axios-instance';
+
 
 class GoalsPanel extends Component {
 
     state = {
-
-        categories: [
-            {
-                title: "Finance",
-                content: [
-                    {
-                        title: "Do taxes",
-                        isChecked: false,
-                        isExpanded: false,
-                        id: 1
-                    },
-                    {
-                        title: "Invest to Stock Market",
-                        isChecked: false,
-                        isExpanded: false,
-                        id: 2
-                    },
-                    {
-                        title: "Invest to Stock Market",
-                        isChecked: false,
-                        isExpanded: false,
-                        id:3
-                    }
-                ],
-            }
-            ,
-            {
-                title: "Job",
-                content: [
-                    {
-                        title: "Finish Project Review",
-                        isChecked: false,
-                        isExpanded: false,
-                        id:4
-                    }
-                    ,
-                    {
-                        title: "Start React Project",
-                        isChecked: false,
-                        isExpanded: false,
-                        id:5
-                    }
-                ]
-            }
-        ]
-        ,
-        count: 5
+        goals : []
     };
 
 
@@ -99,24 +55,45 @@ class GoalsPanel extends Component {
     }
 
 
-    render(){
-    
-        let content =  this.state.categories.map(categ=>{ 
-            return (
-                    <GoalSet 
-                    key = {categ.title}
-                    category = {categ.title}
-                    goals = {categ.content}
-                    checked={this.goalCheckToggle}
-                    expanded={this.goalExpandToggle}/>
-                );
+    componentDidMount=()=>{
+
+        axios.get('/goals')
+        .then(result=>{
+            this.setState(result.data);
+            console.log(result.data)
+        })
+        .catch(err=>{
+            console.log(err);
         });
 
 
+    };
+
+    render(){
+    
+        //here goes the spinner
+        let content = null;
+        if(this.state.goals.length)
+        {
+            content =  this.state.goals.map(categ=>{ 
+                return (
+                        <GoalSet 
+                        key = {categ.title}
+                        category = {categ.title}
+                        goals = {categ.content}
+                        checked={this.goalCheckToggle}
+                        expanded={this.goalExpandToggle}/>
+                    );
+            });
+        }
+
+
         return(
+            
             <div className={classes.GoalsPanel}>
                 {content}
             </div>
+            
 
         );
 

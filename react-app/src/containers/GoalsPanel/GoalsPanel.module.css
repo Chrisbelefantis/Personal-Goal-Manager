@@ -21,17 +21,20 @@
   }
   
   /* Track */
+
   ::-webkit-scrollbar-track {
     background-color: #ffffff; 
   }
    
   /* Handle */
+
   ::-webkit-scrollbar-thumb {
     background-color: rgb(146, 146, 146); 
     border-radius: 15px;
   }
   
   /* Handle on hover */
+  
   ::-webkit-scrollbar-thumb:hover {
     background-color: rgb(146, 146, 146); 
   }

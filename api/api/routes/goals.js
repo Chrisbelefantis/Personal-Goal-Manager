@@ -7,49 +7,77 @@ const { json } = require('body-parser');
 
 
 
-
-
 router.get('/',(req,res,next)=>{
 
-    let result = {};
+    let result = [];
 
     Goal.find({})
     .populate('category')
     .exec()
     .then(data=>{
 
+        
         //Change the format of the response
         //Group goals by category
         for(let i=0; i<data.length; i++)
         {
-            console.log(data[i].category.title);
 
-            if(!result.hasOwnProperty(data[i].category.title)){
-                result[data[i].category.title] = [];
-            }
-
-            result[data[i].category.title].push({
+            let goalContent = { 
                 "title": data[i].title,
                 "isCompleted": data[i].isCompleted,
+                "isExpanded": false,
+                "id":data[i]._id,
                 "request":{
                     "type": "GET",
-                    "url": "http://localhost:3000/goals/" +data[i]._id
-                }
-            });
-        }
+                    "url": "http://localhost:3000/goals/" +data[i]._id 
+                }   
+            };
 
-        res.status(200).json(result);
+
+        
+            let isCategoryExist = false;
+            let categoryIndex = -1;
+            for(let j=0; j<result.length; j++){
+                if(result[j].title === data[i].category.title){
+                    isCategoryExist = true;
+                    categoryIndex = j;
+                }
+
+            }
+
+            if(!isCategoryExist){
+         
+                result.push({
+                    "title": data[i].category.title,
+                    "content": [goalContent]
+                });
+            }else{
+       
+             
+                result[categoryIndex].content.push(goalContent);
+            }
+
+
+
+        }
+        res.status(200).json({
+            "goals":
+                [...result]
+        });
+    
 
     })
     .catch(err=>{
         res.status(500).json({
-            "error": err
+            error:err
         });
-    });
-
-
-
+    })
 });
+
+
+
+
+
 
 
 router.post('/',(req,res,next)=>{

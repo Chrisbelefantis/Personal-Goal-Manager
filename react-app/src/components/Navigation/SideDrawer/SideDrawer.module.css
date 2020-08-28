@@ -6,6 +6,7 @@
     left: 0;
     display: flex;
     flex-direction: column;    
+    align-items: center;
     background-color: white;
     transform: translateX(-100%);
     transition: transform 0.3s ease-in;
@@ -19,4 +20,10 @@
 }
 
 
-
+@media only screen and (min-width: 600px) {
+   
+    .SideDrawer{
+        display: none;
+        
+    }
+}

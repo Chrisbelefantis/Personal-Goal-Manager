@@ -23,3 +23,25 @@
     font-size: medium;
 
 }
+
+
+@media only screen and (min-width: 600px) {
+    .QuotePanel{
+      width: 580px;
+    }
+  }
+
+  @media only screen and (min-width: 992px) {
+    .QuotePanel{
+      width: 650px;
+    }
+  }
+
+
+  @media only screen and (min-width: 1200px) {
+    .QuotePanel{
+      width: 800px;
+    }
+  }
+
+

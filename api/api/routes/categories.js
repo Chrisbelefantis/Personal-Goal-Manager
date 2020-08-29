@@ -84,7 +84,7 @@ router.delete('/:categoryID',(req,res,next)=>{
 
     });
 
-})
+});
 
 
 

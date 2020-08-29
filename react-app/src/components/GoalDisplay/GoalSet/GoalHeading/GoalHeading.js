@@ -1,26 +1,26 @@
-import React from 'react'
-import classes from './GoalHeading.module.css'
-import ClickableDiv from '../../../../hoc/ClickableDiv/ClickableDiv'
-import CheckBox from '../../../UI/CheckBox/CheckBox'
+import React from 'react';
+import classes from './GoalHeading.module.css';
+import ClickableDiv from '../../../../hoc/ClickableDiv/ClickableDiv';
+import CheckBox from '../../../UI/CheckBox/CheckBox';
+import Trashcan from '../../../UI/Trashcan/Trashcan';
+import Pensil from '../../../UI/Pensil/Pensil';
 
 const goalHeading =(props)=>{
     
-    let goalClasses = [classes.GoalHeading];
+    let checkedStyle = null;
     if(props.lineThrough){
-        goalClasses.push(classes.Checked)
+        checkedStyle = classes.Checked;
     }
-    if(props.contentDisplayed){
-        goalClasses.push(classes.Expanded)
-    }
+  
     
     return(
-        <div className={goalClasses.join(' ')}>
+        <div className={classes.GoalHeading}>
             <CheckBox click = {props.changeCheck} checked = {props.lineThrough}/>
             <ClickableDiv  click = {props.changeContentVisibility}>
-                <p>{props.title}</p>
+                <span className={checkedStyle}> <p>{props.title}</p> </span>
             </ClickableDiv>
-            {props.children}
-           
+            <Trashcan click = {props.delete}/>
+            <Pensil/>
         </div>
     );
 }

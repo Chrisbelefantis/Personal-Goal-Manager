@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const Goal = require('../models/goal');
-const { json } = require('body-parser');
+
 
 
 
@@ -27,10 +27,6 @@ router.get('/',(req,res,next)=>{
                 "isCompleted": data[i].isCompleted,
                 "isExpanded": false,
                 "id":data[i]._id,
-                "request":{
-                    "type": "GET",
-                    "url": "http://localhost:3000/goals/" +data[i]._id 
-                }   
             };
 
 
@@ -49,6 +45,7 @@ router.get('/',(req,res,next)=>{
          
                 result.push({
                     "title": data[i].category.title,
+                    "id": data[i].category._id,
                     "content": [goalContent]
                 });
             }else{
@@ -61,7 +58,7 @@ router.get('/',(req,res,next)=>{
 
         }
         res.status(200).json({
-            "goals":
+            "categories":
                 [...result]
         });
     
@@ -112,12 +109,10 @@ router.get('/:goalID',(req,res,next)=>{
     const id = req.params.goalID;
     Goal.findOne({_id:id})
     .exec()
-    .then(data=>{
+    .then(result=>{
 
-        if(data){
-            res.status(200).json({
-                data
-            });
+        if(result){
+            res.status(200).json(result);
         }else{
             res.status(404).json({
                 "message":"Goal not Found"
@@ -167,5 +162,40 @@ router.patch('/:goalID',(req,res,next)=>{
 
 
 });
+
+
+router.delete('/:goalID',(req,res,next)=>{
+
+    const id = req.params.goalID;
+
+    Goal.findOne({_id: id})
+    .exec()
+    .then(result=>{
+        if(result){
+            Goal.deleteOne({_id: id})
+            .then(message=>{
+                res.status(200).json({
+                    "message":"Goal Deleted"
+                });
+            })
+            .catch(err=>{
+                res.status(500).json({
+                    "Error": err
+                });
+            });
+        }else{
+            res.status(404).json({
+                "message":"There is no such Goal"
+            });
+        }
+
+
+    });
+
+});
+
+
+
+
 
 module.exports = router;

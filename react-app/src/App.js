@@ -1,7 +1,8 @@
 import React from 'react';
-import Layout from './containers/Layout/Layout'
+import Layout from './containers/Layout/Layout';
 import GoalsPanel from './containers/GoalsPanel/GoalsPanel';
-import QuotePanel from './components//QuotePanel/QuotePanel'
+import QuotePanel from './components//QuotePanel/QuotePanel';
+
 
 const  App=()=>{
   return (

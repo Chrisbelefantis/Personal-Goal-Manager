@@ -6,14 +6,16 @@
     margin: 70px auto 30px auto;
     border: 5px solid rgb(77, 109, 154,0.3);
     border-radius: 6px;
+    justify-content: space-between;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     overflow-x: scroll;
 }
 
 
-
+.Spinner {
+  justify-content: center;
+}
 
 ::-webkit-scrollbar {
     width: 8px;

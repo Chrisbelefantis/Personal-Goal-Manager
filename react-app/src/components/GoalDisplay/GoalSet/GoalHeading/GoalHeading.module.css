@@ -1,7 +1,7 @@
 .GoalHeading{
 
     padding: 0px 0px 0px 8px;
-    margin: 12px 0 0 0;
+    margin: 12px 0 0px 0;
     border-radius: 8px;
     background-color: #7793BB;
     color: white;
@@ -15,12 +15,15 @@
 
 }
 
+
 .GoalHeading p{
     width: 100%;
+    color: white;
     box-sizing: border-box;
 }
 
-.Checked p{
+.Checked{
     text-decoration: line-through;
+    color: #fffd7a;
 }
 

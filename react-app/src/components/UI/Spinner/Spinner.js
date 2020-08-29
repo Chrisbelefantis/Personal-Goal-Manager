@@ -3,14 +3,7 @@ import classes from './Spinner.module.css';
 
 const spinner = (props)=>(
 
-    <div className={classes.skcase}>
-        <div className={classes.skchasedot}></div>
-        <div className={classes.skchasedot}></div>
-        <div className={classes.skchasedot}></div>
-        <div className={classes.skchasedot}></div>
-        <div className={classes.skchasedot}></div>
-        <div className={classes.skchasedot}></div>
-    </div>
+    <div className={classes.Loader}>Loading...</div>
 
 
 );

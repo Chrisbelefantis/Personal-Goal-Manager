@@ -10,9 +10,11 @@ const goalSet =(props)=>{
         return (
             <IndividualGoal 
             key = {goal.id} 
+            individualID = {goal.id}
             goalTitle = {goal.title}
-            checked = {goal.isChecked}
+            checked = {goal.isCompleted}
             expanded = {goal.isExpanded}
+            deleteGoal = {()=>props.delete(props.category,goal.id)}
             toggleCheck = {()=>props.checked(props.category,goal.id)}
             toogleContent={()=>props.expanded(props.category,goal.id)}/>
         );

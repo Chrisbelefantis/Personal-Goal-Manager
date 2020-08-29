@@ -11,12 +11,14 @@ const individualGoal = (props)=>{
         <Aux>
             <GoalHeading
             lineThrough = {props.checked}
+            delete = {props.deleteGoal}
             changeCheck = {props.toggleCheck}
             changeContentVisibility = {props.toogleContent} 
             contentDisplayed = {props.expanded}
             title = {props.goalTitle}/>
             <GoalContent
-            visible={props.expanded}/>
+            visible={props.expanded}
+            goalID = {props.individualID}/>
         </Aux>
 
     );

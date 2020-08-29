@@ -1,0 +1,11 @@
+.Pensil{
+    background-color: #90a1b9;
+    margin: 10px 10px 10px 2px;
+    padding: 5.5px 5.3px 5px 5px;
+    border-radius: 15px;
+
+}
+
+.Pensil:hover{
+    background-color: #a0abb9;
+}

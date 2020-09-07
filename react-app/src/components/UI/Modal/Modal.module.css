@@ -1,0 +1,44 @@
+.Modal{
+    position: fixed;
+    background-color: white;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    margin: auto;
+    width: 75%;
+    right: 50%;
+    top: 35vh;
+    margin-right: -37.5%;
+    padding: 15px;
+    text-align: center;
+    box-sizing: border-box;
+    z-index: 1000;
+    
+}
+
+
+@media only screen and (min-width: 600px) {
+    .Modal{
+      width: 580px;
+      margin-right: -290px;
+      
+
+ 
+    }
+  }
+
+  @media only screen and (min-width: 992px) {
+    .Modal{
+      width: 650px;
+      margin-right: -325px;
+ 
+    }
+  }
+
+
+  @media only screen and (min-width: 1200px) {
+    .Modal{
+      width: 800px;
+      margin-right: -400px;
+
+    }
+  }

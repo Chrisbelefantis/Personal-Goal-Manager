@@ -2,8 +2,8 @@ import React from 'react';
 import classes from './GoalHeading.module.css';
 import ClickableDiv from '../../../../hoc/ClickableDiv/ClickableDiv';
 import CheckBox from '../../../UI/CheckBox/CheckBox';
-import Trashcan from '../../../UI/Trashcan/Trashcan';
-import Pensil from '../../../UI/Pensil/Pensil';
+import Trashcan from '../../../UI/GoalHeading/Trashcan/Trashcan';
+import Pensil from '../../../UI/GoalHeading/Pensil/Pensil';
 
 const goalHeading =(props)=>{
     

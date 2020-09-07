@@ -3,7 +3,8 @@ import classes from './GoalsPanel.module.css';
 import GoalSet from '../../components/GoalDisplay/GoalSet/GoalSet';
 import axios from '../../axios-instance';
 import Spinner from '../../components/UI/Spinner/Spinner';
-
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+  
 
 class GoalsPanel extends Component {
 
@@ -12,6 +13,7 @@ class GoalsPanel extends Component {
     };
 
 
+  
 
     goalCheckToggle=(category,id)=>{
 
@@ -97,9 +99,11 @@ class GoalsPanel extends Component {
 
     }
 
+    
 
     componentDidMount=()=>{
 
+        console.log("Goals Panel Mounted");
         axios.get('/goals')
         .then(result=>{
             this.setState(result.data);
@@ -135,9 +139,11 @@ class GoalsPanel extends Component {
 
         return(
             
+            
             <div className={styleClasses.join(' ')}>
                 {content}
             </div>
+            
             
 
         );
@@ -147,4 +153,4 @@ class GoalsPanel extends Component {
 }
 
 
-export default GoalsPanel;
+export default withErrorHandler(GoalsPanel,axios);

@@ -8,7 +8,7 @@
     border-radius: 6px;
     justify-content: space-between;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     overflow-x: scroll;
 }
 

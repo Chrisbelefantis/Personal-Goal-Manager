@@ -1,120 +1,53 @@
-
-//Copied code from Q&A see below 
-import React, {useEffect, useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '../../components/UI/Modal/Modal';
+import Aux from '../Auxiliary/Auxiliary';
 
-const withErrorHandler = (WrappedComponent, axios) => {
+const withErrorHandler = (WrappedComponent,axiosInstance)=>{
 
-  const WithErrorHandler = props => {
 
-    const [error, setError] = useState(null);
-    
-    const requestInterceptor = axios.interceptors.request.use(
-      req => {
-        setError(null);
-        return req;
+  const WithErrorHandler = (props)=>{
+    const [error,setError] = useState(null);
+
+    const requestInterceptor = axiosInstance.interceptors.request.use(req=>{
+      setError(null);
+      return req;
+    },err=>{
+        setError(err);
+        return Promise.reject(err);
       }
     );
 
-    const responseInterceptor = axios.interceptors.response.use(
-      res => res,
-      error => {
-        setError(error);
-        console.log('WithErrorHandler: ', error);
-        return Promise.reject(error);
+
+    const responseInterceptor = axiosInstance.interceptors.response.use(res=>{
+      setError(null);
+      return res;
+    },err=>{
+        setError(err);
+        return Promise.reject(err);
       }
     );
 
-    useEffect(
-      () => {
-        return () => {
-          axios.interceptors.request.eject(requestInterceptor);
-          axios.interceptors.response.eject(responseInterceptor);
-        };
-      },
-      [requestInterceptor, responseInterceptor]
-    );
+    useEffect(()=>{
+      return ()=>{
+        axiosInstance.interceptors.request.eject(requestInterceptor);
+        axiosInstance.interceptors.response.eject(responseInterceptor);
+      }
+    },[]);
 
-    return <>
-      <Modal 
-        show={error !== null}
-        modalClosed={() => setError(null)}
-      >
-        {error !== null ? error.message : null}
-      </Modal>
-      <WrappedComponent {...props}/>
-    </>
-  };
+    return(
 
+      <Aux>
+        {error ? <Modal>{error.message}</Modal>:null}
+        <WrappedComponent {...props}/>
+      </Aux>
 
-  return WithErrorHandler;
+    )
+
+  }
+
+    return WithErrorHandler;  
 
 
-};
+  }
 
 export default withErrorHandler;
-
-
-
-
-
-/*
-//Class component version, the only problem is that 
-//you call setState in constructor or you need to use the UNSAFE_componentWillMount
-//which trows a warning
-
-
-import React, {Component} from 'react';
-import Aux from '../../HOC/Auxilliary/Auxiliary';
-import Modal from '../../components/UI/Modal/Modal';
-
-
-const withErrorHandler = (WrappedComponent,axios)=>{
-
-
-    return class extends Component{
-
-        state = {
-            error: null
-        };
-
-        UNSAFE_componentWillMount=()=>{
-            axios.interceptors.request.use(req=>{
-                this.setState({
-                    error: null
-                });
-                return req;
-            })
-            axios.interceptors.response.use(res=>res,error=>{
-                this.setState({
-                    error: error
-                });
-            });
-
-        }
-
-        errorConfirmedHandler = ()=>{
-            this.setState({
-                error:null
-            });
-        }
-
-        render(){
-            return(
-                <Aux>
-                    <Modal show={this.state.error}
-                    closed = {this.errorConfirmedHandler}>
-                        {this.state.error ? this.state.error.message:null}
-                    </Modal>
-                    <WrappedComponent {...this.props}/>
-                </Aux>
-            );
-        
-        }
-
-    }
-}
-
-export default withErrorHandler;
-
-*/

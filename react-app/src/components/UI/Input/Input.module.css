@@ -1,0 +1,21 @@
+.Input{
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.ValidInputElement{
+    outline: none;
+    font:inherit;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    background-color: white;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ValidInputElement:focus{
+    outline: none;
+    background-color:rgb(238, 238, 238);
+}

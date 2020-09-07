@@ -4,7 +4,9 @@ import GoalSet from '../../components/GoalDisplay/GoalSet/GoalSet';
 import axios from '../../axios-instance';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-  
+import QuotePanel from '../../components/QuotePanel/QuotePanel';
+import EditGoal from '../EditGoal/EditGoal';
+import {Route} from 'react-router-dom';
 
 class GoalsPanel extends Component {
 
@@ -103,7 +105,6 @@ class GoalsPanel extends Component {
 
     componentDidMount=()=>{
 
-        console.log("Goals Panel Mounted");
         axios.get('/goals')
         .then(result=>{
             this.setState(result.data);
@@ -136,13 +137,18 @@ class GoalsPanel extends Component {
             });
         }
 
-
+        
         return(
             
+            <React.Fragment>
+                <div className={styleClasses.join(' ')}>
+                    {content}
+                </div>
+                <QuotePanel/>
+                <Route path={this.props.match.path+"/edit/:id"} component={EditGoal}/>
             
-            <div className={styleClasses.join(' ')}>
-                {content}
-            </div>
+            </React.Fragment>
+
             
             
 

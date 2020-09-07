@@ -5,10 +5,10 @@ import classes from './NavigationItems.module.css'
 const navigationItems =()=>(
 
     <ul className={classes.NavigationItems}>
-        <NavigationItem link = "/" active = {true}>
+        <NavigationItem link = "/goals">
             Current Goals
         </NavigationItem>
-        <NavigationItem link = "/" active = {false}>
+        <NavigationItem link = "/new-goal" >
            New Goal
         </NavigationItem>
     </ul>

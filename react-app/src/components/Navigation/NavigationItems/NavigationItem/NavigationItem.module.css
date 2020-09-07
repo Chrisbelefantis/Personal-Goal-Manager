@@ -22,7 +22,7 @@
     border-bottom: 4px solid transparent;
 }
 
-.NavigationItem a.active{
+.NavigationItem .Active{
 
     color: rgb(221, 3, 3);
   
@@ -44,7 +44,7 @@
     .NavigationItem a:hover{
         background-color: #8396af;
     }
-    .NavigationItem a.active{
+    .NavigationItem .Active{
     
         border-bottom: 5px solid #ffffff;
         color: white;

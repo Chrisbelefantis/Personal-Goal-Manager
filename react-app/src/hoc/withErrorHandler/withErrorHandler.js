@@ -32,7 +32,7 @@ const withErrorHandler = (WrappedComponent,axiosInstance)=>{
         axiosInstance.interceptors.request.eject(requestInterceptor);
         axiosInstance.interceptors.response.eject(responseInterceptor);
       }
-    },[]);
+    },[requestInterceptor,responseInterceptor]);
 
     return(
 

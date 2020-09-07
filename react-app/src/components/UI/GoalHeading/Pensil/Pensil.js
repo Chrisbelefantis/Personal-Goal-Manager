@@ -5,7 +5,7 @@ import classes from './Pensil.module.css';
 
 const pensil = (props)=>(
 
-    <div className={classes.Pensil}>
+    <div className={classes.Pensil} onClick={props.click}>
         <Icon icon={editOutlined} color="#fffd7a" />
    </div>
 

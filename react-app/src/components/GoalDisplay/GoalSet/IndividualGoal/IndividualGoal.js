@@ -15,7 +15,8 @@ const individualGoal = (props)=>{
             changeCheck = {props.toggleCheck}
             changeContentVisibility = {props.toogleContent} 
             contentDisplayed = {props.expanded}
-            title = {props.goalTitle}/>
+            title = {props.goalTitle}
+            goalId = {props.individualID}/>
             <GoalContent
             visible={props.expanded}
             goalID = {props.individualID}/>

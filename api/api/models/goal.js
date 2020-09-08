@@ -8,8 +8,8 @@ const goalSchema = new mongoose.Schema({
         ref: 'Category', 
         required:true},
     description: String,
-    dueDate: String,
-    isCompleted: {type: Boolean, required: true}
+    dueDate: Date,
+    isCompleted: {type: Boolean, required: false,default: false}
 });
 
 

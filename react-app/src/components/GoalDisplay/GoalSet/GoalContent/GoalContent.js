@@ -46,7 +46,11 @@ const GoalContent =(props)=>{
     let description = 'No Description';
     if(content){
         if(content.date){
-            dueDate =  <p>Due Date: <strong>{content.date}</strong></p>
+            let DateObject = new Date(content.date);
+            const displayDate = `${DateObject.getDay()}/${DateObject.getMonth()}/${DateObject.getFullYear()}`;
+
+
+            dueDate =  <p>Due Date: <strong>{displayDate}</strong></p>
         }
         if(content.description){
             description = <p>{content.description}</p>;

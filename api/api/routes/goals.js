@@ -78,6 +78,10 @@ router.get('/',(req,res,next)=>{
 
 
 router.post('/',(req,res,next)=>{
+
+
+
+
     const newGoal = new Goal({
         _id: mongoose.Types.ObjectId(),
         title: req.body.title,

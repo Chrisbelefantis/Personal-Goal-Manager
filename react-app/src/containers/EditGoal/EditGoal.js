@@ -46,6 +46,7 @@ class EditGoal extends Component{
                 elementConfig:{
                     type: 'date',
                     id: 'dueDate',
+                    value: '2020-09-09'
                 },
                 validation:{
                     required: false

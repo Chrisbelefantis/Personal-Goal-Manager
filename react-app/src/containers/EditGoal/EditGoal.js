@@ -1,8 +1,10 @@
 import React,{Component} from 'react'
 import Modal from '../../components/UI/Modal/Modal';
 import classes from './EditGoal.module.css';
-import Input from '../../components/UI/Input/Input';
+import Input from '../../components/GoalForm/Input/Input';
+import Button from '../../components/UI/Button/Button';
 import axios from '../../axios-instance';
+
 
 class EditGoal extends Component{
 
@@ -21,7 +23,7 @@ class EditGoal extends Component{
                 validation:{
                     required: true
                 },
-                validity: false
+                validity: true
             },
             description: {
                 elementType: 'textarea',
@@ -46,7 +48,7 @@ class EditGoal extends Component{
                 elementConfig:{
                     type: 'date',
                     id: 'dueDate',
-                    value: '2020-09-09'
+                    value: ''
                 },
                 validation:{
                     required: false
@@ -54,9 +56,24 @@ class EditGoal extends Component{
                 validity: true
             }
         },
-        formIsValid: true
+        formIsValid: true,
+        submiting: false
     };
+ 
 
+    checkValidity(value,rules){
+        let isValid = true;
+        if(rules){
+            if(rules.required){
+                isValid = value.trim() !== '' && isValid;
+
+            }
+
+        }
+
+        return isValid;
+
+    }
 
     onChangeHandler=(event,inputLabel)=>{
 
@@ -67,15 +84,19 @@ class EditGoal extends Component{
 
                 //Add check vality (update validity attribute)
                 updatedSelectedElement.elementConfig.value = event.target.value;
+                updatedSelectedElement.validity = this.checkValidity(event.target.value,updatedSelectedElement.validation);
+
                 
-                //This doesnt work corectly beacause title never gets valid
-                //due to the misssing validate stage
+                updatedEditForm[key] = updatedSelectedElement;
+
                 let formIsValid = true;
                 for(let inputIndentifiers in updatedEditForm){
                     formIsValid = updatedEditForm[inputIndentifiers].validity && formIsValid;
 
                 }
-                
+
+
+                updatedEditForm[key] = updatedSelectedElement;
                 this.setState({
                     editForm: updatedEditForm,
                     formIsValid: formIsValid
@@ -89,6 +110,48 @@ class EditGoal extends Component{
 
     }
 
+    saveButtonHandler=()=>{
+
+
+        this.setState({
+            submiting: true
+        });
+
+        let editedGoal = {};
+
+        
+        for(let key in this.state.editForm){
+            let value = this.state.editForm[key].elementConfig.value;
+            if(value!=='')
+            editedGoal[key] = value;
+        }
+
+        
+        axios.patch('/goals/'+this.props.match.params.id,editedGoal)
+        .then(res=>{
+            this.props.update();
+            this.props.history.push('/goals');
+            
+            
+        })
+        .catch(err=>{
+            alert(err);
+        })
+
+        
+    
+
+
+    }
+
+    closeButtonHandler=()=>{
+
+    
+        this.props.history.push('/goals');
+        
+
+    }
+
     componentDidMount=()=>{
         const goalId = this.props.match.params.id;
         axios.get('/goals/'+goalId)
@@ -97,15 +160,22 @@ class EditGoal extends Component{
            
 
             const updatedEditForm = {...this.state.editForm};
+
             const updatedTitle = {...updatedEditForm['title']};
             const updatedDescription = {...updatedEditForm['description']};
+            const updatedDueDate = {...updatedEditForm['dueDate']};
+
             updatedDescription.elementConfig.value = res.data.description;
             updatedTitle.elementConfig.value = res.data.title;
 
+            if(res.data.dueDate){
+            updatedDueDate.elementConfig.value = res.data.dueDate.split('T')[0];
+            }
             updatedEditForm['title'] = updatedTitle;
             updatedEditForm['description'] = updatedDescription;
+            updatedEditForm['dueDate'] = updatedDueDate;
 
-            console.log(updatedEditForm);
+            
 
             this.setState({
                 editForm: updatedEditForm
@@ -140,8 +210,16 @@ class EditGoal extends Component{
                             changed = {(event)=>this.onChangeHandler(event,element.elementLabel)}/>
 
                     ))}
+
+
                 </div>
-                
+                <Button 
+                    clicked={this.closeButtonHandler}
+                    btnType='danger'>Close</Button>
+                <Button 
+                    clicked={this.saveButtonHandler}
+                    btnType='success'
+                    disabled = {!this.state.formIsValid}>Save</Button>
             </Modal>
         );
     }

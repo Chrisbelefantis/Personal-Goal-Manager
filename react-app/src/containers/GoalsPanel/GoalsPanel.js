@@ -11,7 +11,8 @@ import {Route} from 'react-router-dom';
 class GoalsPanel extends Component {
 
     state = {
-        categories : []
+        categories : [],
+        goalsChanged: false
     };
 
 
@@ -101,6 +102,11 @@ class GoalsPanel extends Component {
 
     }
 
+    raiseGoalChangedFlag=()=>{
+        this.setState({
+            goalsChanged: true 
+        });
+    };
     
 
     componentDidMount=()=>{
@@ -117,8 +123,25 @@ class GoalsPanel extends Component {
 
     };
 
+    componentDidUpdate=()=>{
+        if(this.state.goalsChanged){
+            axios.get('/goals')
+            .then(result=>{
+                this.setState(result.data);
+        
+            })
+            .catch(err=>{
+                console.log(err);
+            });
+
+            this.setState({
+                goalsChanged: false
+            })
+        }
+    }
+
     render(){
-    
+        
         let styleClasses = [classes.GoalsPanel,classes.Spinner];
         let content = <Spinner/>;
         if(this.state.categories.length)
@@ -132,21 +155,22 @@ class GoalsPanel extends Component {
                         goals = {categ.content}
                         delete = {this.deleteGoalHandler}
                         checked={this.goalCheckToggle}
-                        expanded={this.goalExpandToggle}/>
+                        expanded={this.goalExpandToggle}
+                        />
                     );
             });
         }
 
         
         return(
-            
+           
             <React.Fragment>
                 <div className={styleClasses.join(' ')}>
                     {content}
                 </div>
                 <QuotePanel/>
-                <Route path={this.props.match.path+"/edit/:id"} component={EditGoal}/>
-            
+                <Route path={this.props.match.path+"/edit/:id"} render={(props)=><EditGoal update={this.raiseGoalChangedFlag} {...props}/>}/>
+                
             </React.Fragment>
 
             

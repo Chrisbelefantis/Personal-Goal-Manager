@@ -49,7 +49,6 @@ const GoalContent =(props)=>{
             let DateObject = new Date(content.date);
             const displayDate = `${DateObject.getDay()}/${DateObject.getMonth()}/${DateObject.getFullYear()}`;
 
-
             dueDate =  <p>Due Date: <strong>{displayDate}</strong></p>
         }
         if(content.description){

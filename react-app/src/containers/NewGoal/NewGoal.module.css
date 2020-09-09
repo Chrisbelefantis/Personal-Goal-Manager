@@ -1,6 +1,57 @@
-.NewGoal{
-    position: absolute;
-    top: 100px;
-    left: 100px;
-
+.NewGoal {
+    box-sizing: border-box;
+    width: 75%;
+    height: 450px;
+    padding: 20px;
+    margin: 100px auto 30px auto;
+    border: 5px solid rgb(77, 109, 154,0.3);
+    border-radius: 6px;
+  
 }
+
+.NewGoal h2{
+    margin-top: 5px;
+    text-align: center;
+    color: #5C7EAD;
+    letter-spacing: 2px;
+}
+
+.NewGoal p{
+    text-align: center;
+    color: #7B8D93;
+}
+
+.NewGoal hr{
+    border: 0.1px solid #e6df19;
+    background-color: #e6df19;
+    
+}
+
+
+@media only screen and (min-width: 600px) {
+    .NewGoal{
+      width: 580px;
+      height: 500px;
+      margin: 100px auto 60px auto;
+
+    }
+  }
+
+  @media only screen and (min-width: 992px) {
+    .NewGoal{
+      width: 650px;
+      height: 500px;
+      margin: 100px auto 60px auto;
+    }
+  }
+
+
+  @media only screen and (min-width: 1200px) {
+    .NewGoal{
+      width: 800px;
+      height: 550px;
+      margin: 100px auto 60px auto;
+    }
+  }
+
+

@@ -19,3 +19,9 @@
     outline: none;
     background-color:rgb(238, 238, 238);
 }
+
+
+.InvalidInput{
+    background-color: rgb(253, 165, 155);
+    border: 1px solid red;
+}

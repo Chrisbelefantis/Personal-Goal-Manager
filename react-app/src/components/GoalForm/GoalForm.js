@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from './Input/Input';
+import Button from '../UI/Button/Button';
 
 const goalForm = (props)=>{
 
@@ -7,6 +8,7 @@ const goalForm = (props)=>{
     for(let key in props.formElements){
         inputElementsArray.push(props.formElements[key])
     }
+
 
     return(
         <React.Fragment>
@@ -18,9 +20,18 @@ const goalForm = (props)=>{
                     elementConfig = {element.elementConfig}
                     elementTitle = {element.elementTitle}
                     isValid = {element.validity}
-                    changed = {(event)=>props.onChangeHandler(event,element.elementLabel)}/>
+                    changed = {(event)=>props.changed(event,element.elementLabel)}/>
 
             ))}
+            <Button 
+                clicked={props.close}
+                btnType='danger'>Close</Button>
+            <Button 
+                clicked={props.save}
+                btnType='success'
+                disabled = {!props.isFormValid}>Save</Button>
+
+
         </React.Fragment>
 
     );

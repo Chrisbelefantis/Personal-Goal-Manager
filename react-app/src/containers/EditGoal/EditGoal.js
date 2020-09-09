@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import Modal from '../../components/UI/Modal/Modal';
 import classes from './EditGoal.module.css';
-import Input from '../../components/GoalForm/Input/Input';
+import GoalForm from '../../components/GoalForm/GoalForm';
 import Button from '../../components/UI/Button/Button';
 import axios from '../../axios-instance';
 
@@ -190,36 +190,20 @@ class EditGoal extends Component{
 
     render(){
         const goalId = this.props.match.params.id;
-        let inputElementsArray = [];
-        for(let key in this.state.editForm){
-            inputElementsArray.push(this.state.editForm[key]);
-        }
+        
       
         return(
             <Modal>
-                <div className={classes.EditGoal}>
+               
                     Edit Current Goal: {goalId}
-                    {inputElementsArray.map(element=>(
-                        <Input
-                            key = {element.elementLabel}
-                            label = {element.elementLabel}
-                            elementType = {element.elementType}
-                            elementConfig = {element.elementConfig}
-                            elementTitle = {element.elementTitle}
-                            isValid = {element.validity}
-                            changed = {(event)=>this.onChangeHandler(event,element.elementLabel)}/>
-
-                    ))}
-
-
-                </div>
-                <Button 
-                    clicked={this.closeButtonHandler}
-                    btnType='danger'>Close</Button>
-                <Button 
-                    clicked={this.saveButtonHandler}
-                    btnType='success'
-                    disabled = {!this.state.formIsValid}>Save</Button>
+                
+                    <GoalForm 
+                        formElements={this.state.editForm}
+                        changed = {this.onChangeHandler}
+                        close = {this.closeButtonHandler}
+                        save = {this.saveButtonHandler}
+                        isFormValid = {this.state.formIsValid}
+                        />
             </Modal>
         );
     }
@@ -227,4 +211,4 @@ class EditGoal extends Component{
 
 }
 
-export default EditGoal
+export default EditGoal;

@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from './Input/Input';
 import Button from '../UI/Button/Button';
+import classes from './GoalForm.module.css';
 
 const goalForm = (props)=>{
 
@@ -11,7 +12,7 @@ const goalForm = (props)=>{
 
 
     return(
-        <React.Fragment>
+        <div className={classes.GoalForm}>
             {inputElementsArray.map(element=>(
                 <Input
                     key = {element.elementLabel}
@@ -20,19 +21,22 @@ const goalForm = (props)=>{
                     elementConfig = {element.elementConfig}
                     elementTitle = {element.elementTitle}
                     isValid = {element.validity}
+                    isTouched = {element.touched}
                     changed = {(event)=>props.changed(event,element.elementLabel)}/>
 
             ))}
-            <Button 
-                clicked={props.close}
-                btnType='danger'>Close</Button>
-            <Button 
-                clicked={props.save}
-                btnType='success'
-                disabled = {!props.isFormValid}>Save</Button>
+            <div className={classes.Buttons}>
+                <Button 
+                    clicked={props.close}
+                    btnType='danger'>Close</Button>
+                <Button 
+                    clicked={props.save}
+                    btnType='success'
+                    disabled = {!props.isFormValid}>Save</Button>
+            </div>
 
 
-        </React.Fragment>
+        </div>
 
     );
 

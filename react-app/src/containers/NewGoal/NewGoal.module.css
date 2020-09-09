@@ -3,9 +3,10 @@
     width: 75%;
     height: 450px;
     padding: 20px;
-    margin: 100px auto 30px auto;
+    margin: 70px auto 0 auto;
     border: 5px solid rgb(77, 109, 154,0.3);
     border-radius: 6px;
+    overflow-y: scroll;
   
 }
 
@@ -31,8 +32,9 @@
 @media only screen and (min-width: 600px) {
     .NewGoal{
       width: 580px;
-      height: 500px;
-      margin: 100px auto 60px auto;
+      height: 600px;
+      margin: 70px auto 60px auto;
+      overflow: hidden;
 
     }
   }
@@ -40,8 +42,8 @@
   @media only screen and (min-width: 992px) {
     .NewGoal{
       width: 650px;
-      height: 500px;
-      margin: 100px auto 60px auto;
+      height: 600px;
+      margin: 70px auto 60px auto;
     }
   }
 
@@ -49,8 +51,8 @@
   @media only screen and (min-width: 1200px) {
     .NewGoal{
       width: 800px;
-      height: 550px;
-      margin: 100px auto 60px auto;
+      height: 600px;
+      margin: 70px auto 60px auto;
     }
   }
 

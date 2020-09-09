@@ -2,7 +2,7 @@
     box-sizing: border-box;
     width: 75%;
     height: 480px;
-    padding: 20px;
+    padding: 20px 20px 10px 20px;
     margin: 70px auto 30px auto;
     border: 5px solid rgb(77, 109, 154,0.3);
     border-radius: 6px;
@@ -46,7 +46,7 @@
     .GoalsPanel{
       width: 580px;
       height: 450px;
-      margin: 100px auto 60px auto;
+      margin: 70px auto 30px auto;
 
     }
   }
@@ -55,7 +55,7 @@
     .GoalsPanel{
       width: 650px;
       height: 500px;
-      margin: 100px auto 60px auto;
+      margin: 70px auto 30px auto;
     }
   }
 
@@ -64,7 +64,7 @@
     .GoalsPanel{
       width: 800px;
       height: 500px;
-      margin: 100px auto 60px auto;
+      margin: 70px auto 30px auto;
     }
   }
 

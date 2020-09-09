@@ -6,7 +6,7 @@ const input =(props)=>{
     let elementClasses = [classes.ValidInputElement];
     let inputElement = null;
 
-    if(!props.isValid){
+    if(!props.isValid && props.isTouched){
         elementClasses.push(classes.InvalidInput);
     }
 
@@ -18,6 +18,18 @@ const input =(props)=>{
         case('textarea'):
             inputElement = <textarea className={elementClasses.join(' ')} onChange={props.changed} {...props.elementConfig}/>
             break;
+        case('select'):
+            inputElement = (<select
+                className={elementClasses.join('')} 
+                onChange={props.changed}
+                id = {props.elementConfig.id}>
+                <option disabled selected value> -- select an option -- </option>
+                {props.elementConfig.options.map(option=>(
+                    <option key={option.value} value={option.value}>{option.display}</option>
+                ))}
+            </select>)
+            break;
+
         default:
             inputElement = <input className={elementClasses.join(' ')} onChange={props.changed} {...props.elementConfig}/>
             break;
@@ -28,7 +40,7 @@ const input =(props)=>{
    
     return(
         <div className={classes.Input}>
-            <label htmlFor={props.label}>{props.elementTitle}</label>
+            <label className={classes.Label} htmlFor={props.label}>{props.elementTitle}</label>
             {inputElement}
         </div>
     );

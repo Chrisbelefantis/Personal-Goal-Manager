@@ -1,8 +1,8 @@
 import React,{Component} from 'react'
 import Modal from '../../components/UI/Modal/Modal';
-import classes from './EditGoal.module.css';
 import GoalForm from '../../components/GoalForm/GoalForm';
-import Button from '../../components/UI/Button/Button';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import classes from './EditGoal.module.css';
 import axios from '../../axios-instance';
 
 
@@ -13,7 +13,7 @@ class EditGoal extends Component{
             title: {
                 elementType: 'input',
                 elementLabel: 'title',
-                elementTitle: 'Goal Title',
+                elementTitle: 'Goal Title*',
                 elementConfig:{
                     type: 'text',
                     id: 'title',
@@ -82,7 +82,7 @@ class EditGoal extends Component{
                 let updatedEditForm = {...this.state.editForm};
                 let updatedSelectedElement = {...updatedEditForm[key]};
 
-                //Add check vality (update validity attribute)
+             
                 updatedSelectedElement.elementConfig.value = event.target.value;
                 updatedSelectedElement.validity = this.checkValidity(event.target.value,updatedSelectedElement.validation);
 
@@ -137,11 +137,6 @@ class EditGoal extends Component{
         .catch(err=>{
             alert(err);
         })
-
-        
-    
-
-
     }
 
     closeButtonHandler=()=>{
@@ -195,15 +190,19 @@ class EditGoal extends Component{
         return(
             <Modal>
                
-                    Edit Current Goal: {goalId}
-                
-                    <GoalForm 
-                        formElements={this.state.editForm}
-                        changed = {this.onChangeHandler}
-                        close = {this.closeButtonHandler}
-                        save = {this.saveButtonHandler}
-                        isFormValid = {this.state.formIsValid}
-                        />
+                    
+                        {!this.state.submiting ?
+                            <div className={classes.EditGoal}>
+                                <h2>EDIT CURRENT GOAL</h2>
+                                <GoalForm 
+                                    formElements={this.state.editForm}
+                                    changed = {this.onChangeHandler}
+                                    close = {this.closeButtonHandler}
+                                    save = {this.saveButtonHandler}
+                                    isFormValid = {this.state.formIsValid}/>
+                            </div>
+                            : <Spinner/>}
+                    
             </Modal>
         );
     }

@@ -4,6 +4,16 @@
     box-sizing: border-box;
 }
 
+
+
+.Label{
+    font-weight: bold;
+    display: block;
+    margin-bottom:5px;
+    text-align: left;
+
+}
+
 .ValidInputElement{
     outline: none;
     font:inherit;

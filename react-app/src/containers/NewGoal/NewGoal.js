@@ -222,7 +222,7 @@ class NewGoal extends Component{
                             <p>
                                 Choose a clear and specific goal in the
                                 category of your choice. Always try hitting
-                                those goals within fixed a period of time.
+                                those goals within a fixed period of time.
                             </p>
                             <GoalForm 
                                 formElements ={this.state.goalForm}

@@ -4,10 +4,10 @@ const router = express.Router();
 const Goal = require('../models/goal');
 
 
+const checkAuth = require('../../middleware/check-auth');
 
 
-
-router.get('/',(req,res,next)=>{
+router.get('/',checkAuth,(req,res,next)=>{
 
     let result = [];
 
@@ -77,7 +77,7 @@ router.get('/',(req,res,next)=>{
 
 
 
-router.post('/',(req,res,next)=>{
+router.post('/',checkAuth,(req,res,next)=>{
 
 
 
@@ -108,7 +108,7 @@ router.post('/',(req,res,next)=>{
 });
 
 
-router.get('/:goalID',(req,res,next)=>{
+router.get('/:goalID',checkAuth,(req,res,next)=>{
 
     const id = req.params.goalID;
     Goal.findOne({_id:id})
@@ -134,7 +134,7 @@ router.get('/:goalID',(req,res,next)=>{
 });
 
 
-router.patch('/:goalID',(req,res,next)=>{
+router.patch('/:goalID',checkAuth,(req,res,next)=>{
 
   
     const id = req.params.goalID;
@@ -168,7 +168,7 @@ router.patch('/:goalID',(req,res,next)=>{
 });
 
 
-router.delete('/:goalID',(req,res,next)=>{
+router.delete('/:goalID',checkAuth,(req,res,next)=>{
 
     const id = req.params.goalID;
 

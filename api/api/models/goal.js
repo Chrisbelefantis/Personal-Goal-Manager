@@ -9,7 +9,10 @@ const goalSchema = new mongoose.Schema({
         required:true},
     description: String,
     dueDate: Date,
-    isCompleted: {type: Boolean, required: false,default: false}
+    isCompleted: {type: Boolean, required: false,default: false},
+    user: {type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User', 
+        required:true},
 });
 
 

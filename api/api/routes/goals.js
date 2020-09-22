@@ -7,16 +7,19 @@ const Goal = require('../models/goal');
 const checkAuth = require('../../middleware/check-auth');
 
 
-router.get('/',(req,res,next)=>{
+router.get('/',checkAuth,(req,res,next)=>{
 
     let result = [];
+   
 
-    Goal.find({})
+    Goal.find({user: req.userData.userId})
     .populate('category')
     .exec()
     .then(data=>{
 
         
+
+
         //Change the format of the response
         //Group goals by category
         for(let i=0; i<data.length; i++)
@@ -57,10 +60,19 @@ router.get('/',(req,res,next)=>{
 
 
         }
-        res.status(200).json({
-            "categories":
-                [...result]
-        });
+
+        if(result.length===0){
+            res.status(204).json({
+                message:"The User has no Goals yet"
+            });
+        }
+        else{
+            res.status(200).json({
+                "categories":
+                    [...result]
+            });
+        }
+        
     
 
     })
@@ -77,7 +89,7 @@ router.get('/',(req,res,next)=>{
 
 
 
-router.post('/',(req,res,next)=>{
+router.post('/',checkAuth,(req,res,next)=>{
 
 
 
@@ -88,7 +100,8 @@ router.post('/',(req,res,next)=>{
         category: req.body.category,
         description: req.body.description,
         dueDate: req.body.dueDate,
-        isCompleted: req.body.isCompleted
+        isCompleted: req.body.isCompleted,
+        user: req.userData.userId
     });
 
     newGoal.save()
@@ -108,10 +121,10 @@ router.post('/',(req,res,next)=>{
 });
 
 
-router.get('/:goalID',(req,res,next)=>{
+router.get('/:goalID',checkAuth,(req,res,next)=>{
 
     const id = req.params.goalID;
-    Goal.findOne({_id:id})
+    Goal.findOne({_id:id,user: req.userData.userId})
     .exec()
     .then(result=>{
 
@@ -134,7 +147,7 @@ router.get('/:goalID',(req,res,next)=>{
 });
 
 
-router.patch('/:goalID',(req,res,next)=>{
+router.patch('/:goalID',checkAuth,(req,res,next)=>{
 
   
     const id = req.params.goalID;
@@ -146,7 +159,7 @@ router.patch('/:goalID',(req,res,next)=>{
     }
 
 
-    Goal.updateOne({_id:id},{$set: updateOps})
+    Goal.updateOne({_id:id,user: req.userData.userId},{$set: updateOps})
     .exec()
     .then(result=>{
         res.status(200).json({
@@ -168,11 +181,11 @@ router.patch('/:goalID',(req,res,next)=>{
 });
 
 
-router.delete('/:goalID',(req,res,next)=>{
+router.delete('/:goalID',checkAuth,(req,res,next)=>{
 
     const id = req.params.goalID;
 
-    Goal.findOne({_id: id})
+    Goal.findOne({_id: id,user: req.userData.userId})
     .exec()
     .then(result=>{
         if(result){

@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import classes from './Auth.module.css'
 import Input from '../../components/GoalForm/Input/Input';
 import Button from '../../components/UI/Button/Button';
+import {connect} from 'react-redux';
+import {auth} from '../../store/actions/actionCreators';
+import {Redirect} from 'react-router-dom';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 class Auth extends Component{
 
@@ -43,7 +47,8 @@ class Auth extends Component{
             }
             
         },
-        formIsValid: false
+        formIsValid: false,
+        isSignup: false
     }
 
     checkValidity(value,rules){
@@ -100,41 +105,83 @@ class Auth extends Component{
         }
     }
 
-    
+    buttonClickedHandler = () =>{
+        this.props.onAuth(
+            this.state.authForm.email.elementConfig.value,
+            this.state.authForm.password.elementConfig.value,
+            this.state.isSignup);
 
-    render(){
+    }
+
+    switchButtonClickedHandler=()=>{
+        this.setState(prevState=>{
+            return{
+                isSignup: !prevState.isSignup
+            }
+        })
+    }
+
+    render=()=>{
 
         let inputElementsArray = [];
         for(let key in this.state.authForm){
             inputElementsArray.push(this.state.authForm[key])
         }
 
+        let redirect = null;
+        if(this.props.isLoggedIn){
+            redirect = <Redirect to = '/goals'/>;
+        }
 
         return(
+            
             <div className={classes.Auth}>
-                {inputElementsArray.map(element=>(
-                <Input
-                    key = {element.elementLabel}
-                    label = {element.elementLabel}
-                    elementType = {element.elementType}
-                    elementConfig = {element.elementConfig}
-                    elementTitle = {element.elementTitle}
-                    isValid = {element.validity}
-                    isTouched = {element.touched}
-                    changed = {(event)=>this.onChangeHandler(event,element.elementLabel)}/>
+                {!this.props.loading ?
+                <React.Fragment>
+                    {redirect}
+                    {inputElementsArray.map(element=>(
+                    <Input
+                        key = {element.elementLabel}
+                        label = {element.elementLabel}
+                        elementType = {element.elementType}
+                        elementConfig = {element.elementConfig}
+                        elementTitle = {element.elementTitle}
+                        isValid = {element.validity}
+                        isTouched = {element.touched}
+                        changed = {(event)=>this.onChangeHandler(event,element.elementLabel)}/>
 
-                ))}
+                    ))}
+                </React.Fragment>:<Spinner/>}
                 <div className={classes.Button}> 
-                    <Button  
+                    {this.props.error? <p>Auth Failed</p>:null}
+                    <Button
+                        clicked = {this.buttonClickedHandler}
                         btnType='success'
-                        disabled={!this.state.formIsValid}>Sign Up</Button>
+                        disabled={!this.state.formIsValid}>
+                        {this.state.isSignup? 'Signup':'Login'}</Button>
+                    <Button  
+                        clicked = {this.switchButtonClickedHandler}
+                        btnType='danger'
+                        >{this.state.isSignup? 'Change to Login':'Change to Signup'}</Button>
                 </div>
-           </div>
+           </div> 
         );
     }
-
-
 }
 
 
-export default Auth;
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        onAuth: (email,password,isSignup)=> dispatch(auth(email,password,isSignup))
+    }
+};
+
+const mapStateToProps = (state)=>{
+    return{
+        isLoggedIn : state.isAuthenticated,
+        loading: state.loading,
+        error : state.error
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Auth);

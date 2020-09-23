@@ -1,8 +1,35 @@
 .Auth{
-    margin: 70px auto;
+    margin: 150px auto;
     width: 75%;
 }
 
 .Button{
+    margin-top: 15px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+
 }
+
+@media only screen and (min-width: 600px) {
+    .Auth{
+      width: 580px;
+
+
+    }
+  }
+
+  @media only screen and (min-width: 992px) {
+    .Auth{
+      width: 650px;
+
+    }
+  }
+
+
+  @media only screen and (min-width: 1200px) {
+    .Auth{
+      width: 800px;
+
+    }
+  }

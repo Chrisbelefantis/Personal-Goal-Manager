@@ -30,11 +30,25 @@ router.post('/signup',(req,res,next)=>{
                         email: req.body.email,
                         password: hash
                     })
+
+                    const token = jwt.sign(
+                        {
+                            email: data.email,
+                            userId : data._id
+                        },
+                        process.env.JWT_KEY,
+                        {
+                            expiresIn: "1h"
+                        }
+                    );
+
                     user.save()
                     .then(savedData=>{
                         res.status(201).json({
                             message: "New User Added",
-                            data: savedData
+                            data: savedData,
+                            token: token,
+                            expiresIn: 3600
                         });          
                     })
                     .catch(err=>{
@@ -82,7 +96,8 @@ router.post("/login",(req,res,next)=>{
 
                     return res.status(200).json({
                         message: "Auth successful",
-                        token: token
+                        token: token,
+                        expiresIn: 3600
                       });
                 }else{
                     res.status(401).json({

@@ -184,7 +184,6 @@ class EditGoal extends Component{
 
 
     render(){
-        const goalId = this.props.match.params.id;
         
       
         return(

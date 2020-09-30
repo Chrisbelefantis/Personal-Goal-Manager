@@ -11,7 +11,7 @@ const moto=(props)=>{
     
     return(
         <div className={motoClasses.join(' ')}>
-            Dream It - Plan it - Achieve it
+            Dream - Plan - Accomplish
         </div>
     );
 

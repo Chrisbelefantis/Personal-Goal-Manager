@@ -10,10 +10,10 @@ router.post('/signup',(req,res,next)=>{
     User.find({email: req.body.email})
     .exec()
     .then(result=>{
-       
+
         if(result.length >= 1){
             res.status(409).json({
-               messsage: 'Mail Exists'
+                message: 'Mail Exists'
            })
         }else{
 
@@ -33,8 +33,8 @@ router.post('/signup',(req,res,next)=>{
 
                     const token = jwt.sign(
                         {
-                            email: data.email,
-                            userId : data._id
+                            email: req.body.email,
+                            userId : req.body._id
                         },
                         process.env.JWT_KEY,
                         {
@@ -52,7 +52,6 @@ router.post('/signup',(req,res,next)=>{
                         });          
                     })
                     .catch(err=>{
-                        console.log("fick3");
                         res.status(500).json({
                             error: err
                         })

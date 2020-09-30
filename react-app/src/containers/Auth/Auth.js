@@ -7,6 +7,7 @@ import {auth} from '../../store/actions/actionCreators';
 import {Redirect} from 'react-router-dom';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
+
 class Auth extends Component{
 
     state = {
@@ -123,6 +124,7 @@ class Auth extends Component{
 
     render=()=>{
 
+        console.log("[AUTH] Rendered");
         let inputElementsArray = [];
         for(let key in this.state.authForm){
             inputElementsArray.push(this.state.authForm[key])
@@ -153,7 +155,7 @@ class Auth extends Component{
                     ))}
                 </React.Fragment>:<Spinner/>}
                 <div className={classes.Button}> 
-                    {this.props.error? <p>Auth Failed</p>:null}
+                    {this.props.error? <p>{this.props.error}</p>:null}
                     <Button
                         clicked = {this.buttonClickedHandler}
                         btnType='success'
@@ -162,7 +164,7 @@ class Auth extends Component{
                     <Button  
                         clicked = {this.switchButtonClickedHandler}
                         btnType='danger'
-                        >{this.state.isSignup? 'Change to Login':'Change to Signup'}</Button>
+                        >{this.state.isSignup? 'Switch to Login':'Switch to Signup'}</Button>
                 </div>
            </div> 
         );

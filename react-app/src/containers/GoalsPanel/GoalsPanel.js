@@ -6,15 +6,21 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import QuotePanel from '../../components/QuotePanel/QuotePanel';
 import EditGoal from '../EditGoal/EditGoal';
-import {Route} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Route,Redirect} from 'react-router-dom';
+import * as actions from '../../store/actions/actionCreators';
 
 class GoalsPanel extends Component {
 
+
+    //Goals changed starts with true in order
+    //to be able to load the goals after the autoLogIn
+    //Because the local storage is checked after all 
+    //components have been mounted
     state = {
         categories : [],
-        goalsChanged: false
+        goalsChanged: true
     };
-
 
   
 
@@ -111,19 +117,33 @@ class GoalsPanel extends Component {
 
     componentDidMount=()=>{
 
-        axios.get('/goals')
-        .then(result=>{
-            this.setState(result.data);
-    
-        })
-        .catch(err=>{
-            console.log(err);
-        });
-
+        console.log('[Goals Panel] Mounted');
+        
+        //If it is mounted after login this.props.isLoggedIn in true
+        //so we continue
+        //If it is mounted after refresh this.props.isLoggedIn is false
+        //so we wait for the app component to be mounted and call
+        //the appropriate function for autoLogIn
+        if(this.props.isLoggedIn)
+        {
+            console.log("Continue to request");
+            axios.get('/goals')
+            .then(result=>{
+                this.setState(result.data);
+        
+            })
+            .catch(err=>{
+                console.log(err);
+            });
+        }
 
     };
 
     componentDidUpdate=()=>{
+        
+
+        console.log("[Goals Panel] updated",this.props.isLoggedIn,this.props.token)
+
         if(this.state.goalsChanged){
             axios.get('/goals')
             .then(result=>{
@@ -138,10 +158,12 @@ class GoalsPanel extends Component {
                 goalsChanged: false
             })
         }
+
+
     }
 
     render(){
-        
+        console.log('[Goals Panel] rendered');
         let styleClasses = [classes.GoalsPanel,classes.Spinner];
         let content = <Spinner/>;
         if(this.state.categories.length)
@@ -164,6 +186,7 @@ class GoalsPanel extends Component {
         
         return(
            
+            this.props.isLoggedIn || !this.props.isLocalStoragedChecked?
             <React.Fragment>
                 <div className={styleClasses.join(' ')}>
                     {content}
@@ -171,7 +194,7 @@ class GoalsPanel extends Component {
                 <QuotePanel/>
                 <Route path={this.props.match.path+"/edit/:id"} render={(props)=><EditGoal update={this.raiseGoalChangedFlag} {...props}/>}/>
                 
-            </React.Fragment>
+            </React.Fragment>:<Redirect to="/auth"/>
 
             
             
@@ -182,5 +205,18 @@ class GoalsPanel extends Component {
 
 }
 
+const mapStateToProps = (state)=>{
+    return{
+        isLoggedIn: state.isAuthenticated,
+        token: state.token,
+        isLocalStoragedChecked: state.isLocalStoragedChecked
+    }
+}
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        onAutoLogIn : ()=>dispatch(actions.authCheckState())
+    }
+};
 
-export default withErrorHandler(GoalsPanel,axios);
+
+export default connect(mapStateToProps,mapDispatchToProps)(withErrorHandler(GoalsPanel,axios));

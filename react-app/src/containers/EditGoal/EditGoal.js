@@ -1,10 +1,12 @@
 import React,{Component} from 'react'
+import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Modal from '../../components/UI/Modal/Modal';
 import GoalForm from '../../components/GoalForm/GoalForm';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './EditGoal.module.css';
 import axios from '../../axios-instance';
-
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 class EditGoal extends Component{
 
@@ -187,6 +189,7 @@ class EditGoal extends Component{
         
       
         return(
+            this.props.isLoggedIn || !this.props.isLocalStoragedChecked?
             <Modal>
                
                     
@@ -202,11 +205,18 @@ class EditGoal extends Component{
                             </div>
                             : <Spinner/>}
                     
-            </Modal>
+            </Modal>:<Redirect to="/auth"/>
         );
     }
 
 
 }
 
-export default EditGoal;
+const mapStateToProps = (state)=>{
+    return{
+        isLoggedIn: state.isAuthenticated,
+        isLocalStoragedChecked: state.isLocalStoragedChecked
+    }
+}
+
+export default connect(mapStateToProps,null)(withErrorHandler(EditGoal,axios));

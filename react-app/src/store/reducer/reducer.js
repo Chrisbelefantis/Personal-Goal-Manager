@@ -1,9 +1,10 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    isAuthenticated: true,
+    isAuthenticated: false,
     token: null,
     loading: false,
+    isLocalStoragedChecked: false,
     error: null
 };
 
@@ -30,13 +31,18 @@ const reducer = (state=initialState,action) =>{
                 loading: false,
                 error: action.error
             }
-        case actionTypes.LOG_OUT:{
+        case actionTypes.LOG_OUT:
             return{
                 ...state,
                 isAuthenticated:false,
                 token: null
             }
-        }
+        
+        case actionTypes.LOCAL_STORAGE_CHECKED:
+            return{
+                ...state,
+                isLocalStoragedChecked: true
+            }
         default: 
             return state
     }

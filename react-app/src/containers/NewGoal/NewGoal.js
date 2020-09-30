@@ -4,6 +4,8 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-instance';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import GoalForm from '../../components/GoalForm/GoalForm';
+import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
 
 class NewGoal extends Component{
 
@@ -217,6 +219,7 @@ class NewGoal extends Component{
 
         return(
 
+            this.props.isLoggedIn || !this.props.isLocalStoragedChecked?
             <div className={classes.NewGoal}>
 
                     {!this.state.submiting ?
@@ -236,11 +239,19 @@ class NewGoal extends Component{
                         </React.Fragment>
                     :<Spinner/>}
 
-            </div>
+            </div>:<Redirect to="/auth"/>
         );
     }
 
 
 }
 
-export default withErrorHandler(NewGoal,axios);
+const mapStateToProps = (state)=>{
+    return{
+        isLoggedIn: state.isAuthenticated,
+        isLocalStoragedChecked: state.isLocalStoragedChecked
+    }
+}
+
+
+export default connect(mapStateToProps,null)(withErrorHandler(NewGoal,axios));

@@ -205,7 +205,7 @@ class EditGoal extends Component{
                             </div>
                             : <Spinner/>}
                     
-            </Modal>:<Redirect to="/auth"/>
+            </Modal>:<Redirect to="/home"/>
         );
     }
 

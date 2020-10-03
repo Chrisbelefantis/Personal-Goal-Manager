@@ -124,7 +124,7 @@ class Auth extends Component{
 
     render=()=>{
 
-        console.log("[AUTH] Rendered");
+      
         let inputElementsArray = [];
         for(let key in this.state.authForm){
             inputElementsArray.push(this.state.authForm[key])

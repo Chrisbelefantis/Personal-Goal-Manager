@@ -3,7 +3,7 @@ import Layout from './containers/Layout/Layout';
 import GoalsPanel from './containers/GoalsPanel/GoalsPanel';
 import NewGoal from './containers/NewGoal/NewGoal';
 import {Route,Switch,Redirect} from 'react-router-dom';
-import Auth from './containers/Auth/Auth';
+import Homepage from './components/Homepage/Homepage';
 import {connect} from 'react-redux';
 import * as actionCreators from './store/actions/actionCreators';
 
@@ -32,7 +32,7 @@ class App extends Component {
         <Switch>
           <Route path="/goals"  component = {GoalsPanel}/>
           <Route path="/new-goal" exact component = {NewGoal}/>
-          <Route path="/Auth" exact component = {Auth}/>
+          <Route path="/home" exact component = {Homepage}/>
           <Redirect from="/" exact to="/Auth" />
           <Route 
           render={()=>

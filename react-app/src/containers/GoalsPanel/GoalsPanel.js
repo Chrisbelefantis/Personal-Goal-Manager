@@ -192,7 +192,7 @@ class GoalsPanel extends Component {
                 <QuotePanel/>
                 <Route path={this.props.match.path+"/edit/:id"} render={(props)=><EditGoal update={this.raiseGoalChangedFlag} {...props}/>}/>
                 
-            </React.Fragment>:<Redirect to="/auth"/>
+            </React.Fragment>:<Redirect to="/home"/>
 
             
             

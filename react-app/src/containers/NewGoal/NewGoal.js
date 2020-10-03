@@ -239,7 +239,7 @@ class NewGoal extends Component{
                         </React.Fragment>
                     :<Spinner/>}
 
-            </div>:<Redirect to="/auth"/>
+            </div>:<Redirect to="/home"/>
         );
     }
 

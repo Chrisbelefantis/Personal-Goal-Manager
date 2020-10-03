@@ -8,8 +8,8 @@ const navigationItems =(props)=>{
 
     let navigationItems = (
         <React.Fragment>
-            <NavigationItem link = "/auth">
-            Login / Signup
+            <NavigationItem link = "/home">
+            Homepage
             </NavigationItem>
             <NavigationItem link = "/about">
                 About
@@ -27,7 +27,7 @@ const navigationItems =(props)=>{
                 New Goal
                 </NavigationItem>
                 <NavigationItem 
-                    link = "/auth"
+                    link = "/home"
                     clicked = {props.onLogout}>Log Out</NavigationItem>
             </React.Fragment>
         );

@@ -12,6 +12,8 @@ const goalSet =(props)=>{
             key = {goal.id} 
             individualID = {goal.id}
             goalTitle = {goal.title}
+            goalDescription = {goal.description}
+            goalDueDate = {goal.dueDate}
             checked = {goal.isCompleted}
             expanded = {goal.isExpanded}
             deleteGoal = {()=>props.delete(props.category,goal.id)}

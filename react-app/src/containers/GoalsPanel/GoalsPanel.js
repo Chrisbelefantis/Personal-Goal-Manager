@@ -117,8 +117,6 @@ class GoalsPanel extends Component {
 
     componentDidMount=()=>{
 
-        console.log('[Goals Panel] Mounted');
-        
         //If it is mounted after login this.props.isLoggedIn in true
         //so we continue
         //If it is mounted after refresh this.props.isLoggedIn is false
@@ -126,7 +124,7 @@ class GoalsPanel extends Component {
         //the appropriate function for autoLogIn
         if(this.props.isLoggedIn)
         {
-            console.log("Continue to request");
+         
             axios.get('/goals')
             .then(result=>{
                 this.setState(result.data);
@@ -142,7 +140,7 @@ class GoalsPanel extends Component {
     componentDidUpdate=()=>{
         
 
-        console.log("[Goals Panel] updated",this.props.isLoggedIn,this.props.token)
+       
 
         if(this.state.goalsChanged){
             axios.get('/goals')
@@ -163,7 +161,7 @@ class GoalsPanel extends Component {
     }
 
     render(){
-        console.log('[Goals Panel] rendered');
+      
         let styleClasses = [classes.GoalsPanel,classes.Spinner];
         let content = <Spinner/>;
         if(this.state.categories.length)

@@ -27,6 +27,8 @@ router.get('/',checkAuth,(req,res,next)=>{
 
             let goalContent = { 
                 "title": data[i].title,
+                "description": data[i].description,
+                "dueDate": data[i].dueDate,
                 "isCompleted": data[i].isCompleted,
                 "isExpanded": false,
                 "id":data[i]._id,
@@ -125,6 +127,8 @@ router.get('/:goalID',checkAuth,(req,res,next)=>{
 
     const id = req.params.goalID;
     Goal.findOne({_id:id,user: req.userData.userId})
+    .populate('user')
+    .populate('category')
     .exec()
     .then(result=>{
 

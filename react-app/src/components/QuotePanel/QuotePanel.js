@@ -1,10 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react';
 import classes from './QuotePanel.module.css';
 
-class QuotePanel extends Component{
+class QuotePanel extends React.PureComponent{
 
+
+    com
 
     render(){
+     
         return(
             <div className={classes.QuotePanel}>
                 <div className={classes.Heading}>

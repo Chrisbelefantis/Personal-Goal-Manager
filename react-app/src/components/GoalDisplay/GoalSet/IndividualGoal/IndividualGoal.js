@@ -19,6 +19,8 @@ const individualGoal = (props)=>{
             goalId = {props.individualID}/>
             <GoalContent
             visible={props.expanded}
+            dueDate= {props.goalDueDate}
+            description = {props.goalDescription}
             goalID = {props.individualID}/>
         </Aux>
 

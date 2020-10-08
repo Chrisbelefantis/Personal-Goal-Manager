@@ -33,7 +33,7 @@ class App extends Component {
           <Route path="/goals"  component = {GoalsPanel}/>
           <Route path="/new-goal" exact component = {NewGoal}/>
           <Route path="/home" exact component = {Homepage}/>
-          <Redirect from="/" exact to="/Auth" />
+          <Redirect from="/" exact to="/home" />
           <Route 
           render={()=>
             <h1 style={{marginTop: '100px'}}>Error 404: Page not Found</h1>

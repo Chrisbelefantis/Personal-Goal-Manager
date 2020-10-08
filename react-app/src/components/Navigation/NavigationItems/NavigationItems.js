@@ -11,9 +11,7 @@ const navigationItems =(props)=>{
             <NavigationItem link = "/home">
             Homepage
             </NavigationItem>
-            <NavigationItem link = "/about">
-                About
-            </NavigationItem>
+           
            
         </React.Fragment>
     );

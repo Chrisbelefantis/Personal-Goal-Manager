@@ -25,4 +25,4 @@ yarn-error.log*
 
 *.code-workspace
 
-nodemon.json
+nodemon.*

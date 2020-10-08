@@ -1,6 +1,0 @@
-{
-    "env":{
-        "MONGO_ATLAS_PSW":"aletb!pao@7",
-        "JWT_KEY": "secret"
-    }
-}

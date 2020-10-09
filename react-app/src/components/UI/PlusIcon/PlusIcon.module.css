@@ -1,0 +1,31 @@
+.PlusIcon {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0 auto;
+    width: 90px;
+    height: 90px;
+    border-radius: 50px;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+
+.PlusIcon :hover{
+    background-color: rgb(190, 190, 190);
+    width: 90px;
+    height: 90px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.PlusIcon h1{
+    box-sizing: border-box;
+    font-size: 73px;
+    font-weight: lighter;
+}
+

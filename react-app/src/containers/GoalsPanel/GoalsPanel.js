@@ -3,6 +3,7 @@ import classes from './GoalsPanel.module.css';
 import GoalSet from '../../components/GoalDisplay/GoalSet/GoalSet';
 import axios from '../../axios-instance';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import PlusIcon from '../../components/UI/PlusIcon/PlusIcon';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import QuotePanel from '../../components/QuotePanel/QuotePanel';
 import EditGoal from '../EditGoal/EditGoal';
@@ -19,6 +20,7 @@ class GoalsPanel extends Component {
     //components have been mounted
     state = {
         categories : [],
+        dataFetched: false,
         goalsChanged: true
     };
 
@@ -114,6 +116,10 @@ class GoalsPanel extends Component {
         });
     };
     
+    plusIconHandler = ()=>{
+        this.props.history.push("/new-goal");
+
+    }
 
     componentDidMount=()=>{
 
@@ -127,7 +133,20 @@ class GoalsPanel extends Component {
          
             axios.get('/goals')
             .then(result=>{
-                this.setState(result.data);
+
+                if(result.data){
+
+                    this.setState(
+                        {
+                            ...result.data,
+                            dataFetched:true
+                        }
+                    );
+
+                }
+                else{
+                    this.setState({dataFetched: true})
+                }
         
             })
             .catch(err=>{
@@ -145,7 +164,20 @@ class GoalsPanel extends Component {
         if(this.state.goalsChanged){
             axios.get('/goals')
             .then(result=>{
-                this.setState(result.data);
+            
+                if(result.data){
+
+                    this.setState(
+                        {
+                            ...result.data,
+                            dataFetched:true
+                        }
+                    );
+
+                }
+                else{
+                    this.setState({dataFetched: true})
+                }
         
             })
             .catch(err=>{
@@ -164,21 +196,36 @@ class GoalsPanel extends Component {
       
         let styleClasses = [classes.GoalsPanel,classes.Spinner];
         let content = <Spinner/>;
-        if(this.state.categories.length)
-        {
-            styleClasses.pop();
-            content =  this.state.categories.map(categ=>{ 
-                return (
-                        <GoalSet 
-                        key = {categ.title}
-                        category = {categ.title}
-                        goals = {categ.content}
-                        delete = {this.deleteGoalHandler}
-                        checked={this.goalCheckToggle}
-                        expanded={this.goalExpandToggle}
-                        />
-                    );
-            });
+
+        if(this.state.dataFetched){
+
+            if(this.state.categories.length>0)
+            {
+                styleClasses.pop();
+                content =  this.state.categories.map(categ=>{ 
+                    return (
+                            <GoalSet 
+                            key = {categ.title}
+                            category = {categ.title}
+                            goals = {categ.content}
+                            delete = {this.deleteGoalHandler}
+                            checked={this.goalCheckToggle}
+                            expanded={this.goalExpandToggle}
+                            />
+                        );
+                });
+            }
+            else if(this.state.categories.length===0){
+            
+                content = (
+                    <React.Fragment>
+                        <PlusIcon clicked = {this.plusIconHandler}/>
+                        <p style={{textAlign: 'center', color: '#79869f'}}>Press to add a new goal</p>
+                    </React.Fragment> 
+                );
+
+            }
+        
         }
 
         

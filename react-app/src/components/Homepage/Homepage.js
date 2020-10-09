@@ -3,6 +3,8 @@ import classes from './Homepage.module.css';
 import Button from '../../components/UI/Button/Button';
 import Auth from '../../containers/Auth/Auth';
 
+
+
 const Homepage = (props)=>{
 
     const [displayAuth, setDisplayAuth] = useState(false);
@@ -24,6 +26,8 @@ const Homepage = (props)=>{
             <Button disabled = {displayAuth} clicked = {toogleAuth} btnType="success"> Continue </Button>
         
             {displayAuth ? <Auth/> : null} 
+
+           
 
         </div>
 

@@ -4,11 +4,11 @@ const router = express.Router();
 
 const Category = require('../models/category');
 
+const checkAuth = require('../../middleware/check-auth');
 
+router.get('/',checkAuth,(req,res,next)=>{
 
-router.get('/',(req,res,next)=>{
-
-    Category.find({},'title')
+    Category.find({user: req.userData.userId},'title')
     .exec()
     .then(data=>{
         res.status(200).json(Object.values(data));
@@ -20,14 +20,15 @@ router.get('/',(req,res,next)=>{
 });
 
 
-router.post('/',(req,res,next)=>{
+router.post('/',checkAuth,(req,res,next)=>{
 
     const newCategory = new Category({
         _id:mongoose.Types.ObjectId(),
-        title: req.body.title
+        title: req.body.title,
+        user: req.userData.userId
     });
 
-    Category.find({title: req.body.title})
+    Category.find({title: req.body.title, user: req.userData.userId})
     .exec()
     .then(data=>{
         if(data.length===0){
@@ -56,7 +57,7 @@ router.post('/',(req,res,next)=>{
 });
 
 
-router.delete('/:categoryID',(req,res,next)=>{
+router.delete('/:categoryID',checkAuth,(req,res,next)=>{
 
     const id = req.params.categoryID;
 

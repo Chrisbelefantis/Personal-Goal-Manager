@@ -28,6 +28,7 @@ const input =(props)=>{
                 {props.elementConfig.options.map(option=>(
                     <option key={option.value} value={option.value}>{option.display}</option>
                 ))}
+            <option key="newCategory" value = "newCategory">New Category</option>
             </select>)
             break;
 

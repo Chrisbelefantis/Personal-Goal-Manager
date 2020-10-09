@@ -138,6 +138,9 @@ class NewGoal extends Component{
 
     onChangeHandler=(event,inputLabel)=>{
     
+
+        
+
         for(let key in this.state.goalForm){
             if(this.state.goalForm[key].elementLabel===inputLabel){
                 let updatedgoalForm = {...this.state.goalForm};
@@ -169,8 +172,49 @@ class NewGoal extends Component{
 
         }
 
+        
+        if(this.state.goalForm.category.elementConfig.value==='newCategory'){
 
+            if(!this.state.goalForm.hasOwnProperty('newCategory')){
+                this.setState({
+                    goalForm: {...this.state.goalForm,
+                        newCategory: {
+                            elementType: 'input',
+                            elementLabel: 'newCategory',
+                            elementTitle: 'Category Title*',
+                            elementConfig:{
+                                type: 'text',
+                                id: 'newCategory',
+                                placeholder: 'New Category Title',
+                                value: ''
+                            },
+                            validation:{
+                                required: true
+                            },
+                            validity: false,
+                            touched: false
+                        }
+                    } ,
+                })
+            }
+        }
+        else
+        {
+            if(this.state.goalForm.hasOwnProperty('newCategory')){
+
+                let updatedgoalForm = {...this.state.goalForm};
+                delete updatedgoalForm.newCategory;
+                this.setState({
+                    goalForm: updatedgoalForm
+                });
+    
+            }
+        }
     }
+
+
+
+
 
     componentDidMount=()=>{
 

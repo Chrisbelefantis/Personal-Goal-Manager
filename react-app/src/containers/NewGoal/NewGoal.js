@@ -77,7 +77,8 @@ class NewGoal extends Component{
           
         },
         formIsValid: false,
-        submiting:false
+        submiting:false,
+        categoriesLoaded:false
     };
 
 
@@ -109,23 +110,60 @@ class NewGoal extends Component{
 
         
         for(let key in this.state.goalForm){
-            let value = this.state.goalForm[key].elementConfig.value;
-            if(value!==''){
-                newGoal[key] = value;
+            if(key !== 'newCategory')
+            {
+                let value = this.state.goalForm[key].elementConfig.value;
+                if(value!==''){
+                    newGoal[key] = value;
+                }
             }
         }
 
+        //In case there is a new category
+        if(this.state.goalForm.hasOwnProperty('newCategory')){
+            const newCategory = {
+                title: this.state.goalForm.newCategory.elementConfig.value
+            }
 
-        axios.post('/goals',newGoal)
-        .then(res=>{
             
-            this.props.history.push('/goals');
-            
-            
-        })
-        .catch(err=>{
-            console.log(err);
-        })
+
+            axios.post('/categories',newCategory)
+            .then(res=>{
+                console.log("mpika2");
+                newGoal['category'] = res.data.category._id;
+                axios.post('/goals',newGoal)
+                .then(res=>{
+                    
+                    this.props.history.push('/goals');  
+                    
+                })
+                .catch(err=>{
+                    console.log(err);
+                })
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+
+        }
+        //Standard case without a new category
+        else{
+
+            axios.post('/goals',newGoal)
+            .then(res=>{
+                
+                this.props.history.push('/goals');  
+                
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+
+        }
+
+        
+
+
     }
 
     closeButtonHandler=()=>{
@@ -138,8 +176,6 @@ class NewGoal extends Component{
 
     onChangeHandler=(event,inputLabel)=>{
     
-
-        
 
         for(let key in this.state.goalForm){
             if(this.state.goalForm[key].elementLabel===inputLabel){
@@ -157,7 +193,6 @@ class NewGoal extends Component{
                 let formIsValid = true;
                 for(let inputIndentifiers in updatedgoalForm){
                     formIsValid = updatedgoalForm[inputIndentifiers].validity && formIsValid;
-
                 }
 
 
@@ -165,95 +200,117 @@ class NewGoal extends Component{
                 this.setState({
                     goalForm: updatedgoalForm,
                     formIsValid: formIsValid
+                },()=>{
+                    //I know this is ugly
+                    if(this.state.goalForm.category.elementConfig.value==='newCategory'){
+
+                        if(!this.state.goalForm.hasOwnProperty('newCategory')){
+                            this.setState({
+                                goalForm: {...this.state.goalForm,
+                                    newCategory: {
+                                        elementType: 'input',
+                                        elementLabel: 'newCategory',
+                                        elementTitle: 'Category Title*',
+                                        elementConfig:{
+                                            type: 'text',
+                                            id: 'newCategory',
+                                            placeholder: 'New Category Title',
+                                            value: ''
+                                        },
+                                        validation:{
+                                            required: true
+                                        },
+                                        validity: false,
+                                        touched: false
+                                    }
+                                } ,
+                                formIsValid: false
+                            })
+                        }
+                    }
+                    else
+                    {
+                        if(this.state.goalForm.hasOwnProperty('newCategory')){
+            
+                            let updatedgoalForm = {...this.state.goalForm};
+                            delete updatedgoalForm.newCategory;
+            
+                            let formIsValid = true;
+                            for(let inputIndentifiers in updatedgoalForm){
+                                formIsValid = updatedgoalForm[inputIndentifiers].validity && formIsValid;
+            
+                            }
+            
+                            this.setState({
+                                goalForm: updatedgoalForm,
+                                formIsValid: formIsValid
+                            });
+                
+                        }
+                    }   
+
+
                 });
 
                 break;
             }
-
         }
-
         
-        if(this.state.goalForm.category.elementConfig.value==='newCategory'){
-
-            if(!this.state.goalForm.hasOwnProperty('newCategory')){
-                this.setState({
-                    goalForm: {...this.state.goalForm,
-                        newCategory: {
-                            elementType: 'input',
-                            elementLabel: 'newCategory',
-                            elementTitle: 'Category Title*',
-                            elementConfig:{
-                                type: 'text',
-                                id: 'newCategory',
-                                placeholder: 'New Category Title',
-                                value: ''
-                            },
-                            validation:{
-                                required: true
-                            },
-                            validity: false,
-                            touched: false
-                        }
-                    } ,
-                })
-            }
-        }
-        else
-        {
-            if(this.state.goalForm.hasOwnProperty('newCategory')){
-
-                let updatedgoalForm = {...this.state.goalForm};
-                delete updatedgoalForm.newCategory;
-                this.setState({
-                    goalForm: updatedgoalForm
-                });
-    
-            }
-        }
     }
 
 
 
-
-
-    componentDidMount=()=>{
-
+    loadCategories = () =>{
         const updatedgoalForm = {...this.state.goalForm};
         const updatedCategories = {...updatedgoalForm['category']};
         const upadatedCategoryConfig = {...updatedCategories['elementConfig']};
 
         
+        if(this.props.isLoggedIn)
+        {
+            axios.get('/categories')
+            .then(res=>{
+                
+                let options = [];
 
-        axios.get('/categories')
-        .then(res=>{
-            
-            let options = [];
-
-            for(let i=0; i<res.data.length; i++){
-                let newOption = {
-                    value: res.data[i]._id,
-                    display: res.data[i].title.charAt(0).toUpperCase() + res.data[i].title.slice(1),
-                   
+                for(let i=0; i<res.data.length; i++){
+                    let newOption = {
+                        value: res.data[i]._id,
+                        display: res.data[i].title.charAt(0).toUpperCase() + res.data[i].title.slice(1),
+                    
+                    }
+                    options.push(newOption);
                 }
-                options.push(newOption);
-            }
-            upadatedCategoryConfig['options'] = options;
+                upadatedCategoryConfig['options'] = options;
 
-            updatedCategories['elementConfig'] = upadatedCategoryConfig;
-            updatedgoalForm['category'] = updatedCategories;
+                updatedCategories['elementConfig'] = upadatedCategoryConfig;
+                updatedgoalForm['category'] = updatedCategories;
 
-            this.setState({
-                goalForm: updatedgoalForm
-            });
-
-
-        })
-        .catch(err=>{
-            console.log(err);
-        })
+                this.setState({
+                    goalForm: updatedgoalForm,
+                    categoriesLoaded: true
+                });
 
 
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+        }
+    }
 
+
+
+    componentDidUpdate=()=>{
+        if(!this.state.categoriesLoaded)
+        {
+            this.loadCategories();
+        }
+    }
+
+    componentDidMount=()=>{
+
+       this.loadCategories();
     }
 
 

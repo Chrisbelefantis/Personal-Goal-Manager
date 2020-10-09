@@ -30,11 +30,12 @@ router.post('/signup',(req,res,next)=>{
                         email: req.body.email,
                         password: hash
                     })
-
+                    
+                   
                     const token = jwt.sign(
                         {
-                            email: req.body.email,
-                            userId : req.body._id
+                            email: user.email,
+                            userId : user._id
                         },
                         process.env.JWT_KEY,
                         {
@@ -75,6 +76,7 @@ router.post("/login",(req,res,next)=>{
     User.findOne({email: req.body.email})
     .exec()
     .then(data=>{
+        console.log(data);
         if(data===null){
             res.status(401).json({
                 message: "Auth Failed"

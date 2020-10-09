@@ -22,6 +22,7 @@ router.get('/',checkAuth,(req,res,next)=>{
 
 router.post('/',checkAuth,(req,res,next)=>{
 
+    console.log(req.userData.userId);
     const newCategory = new Category({
         _id:mongoose.Types.ObjectId(),
         title: req.body.title,
@@ -32,15 +33,17 @@ router.post('/',checkAuth,(req,res,next)=>{
     .exec()
     .then(data=>{
         if(data.length===0){
-
+     
             newCategory.save()
             .then(data=>{
+                
                 res.status(201).json({
                     "message":"New Category Added",
                     "category": data
                 });
             })
             .catch(err=>{
+              console.log(err);
                 res.status(500).json({
                     "message": "An error occured",
                     "error": err
@@ -48,6 +51,7 @@ router.post('/',checkAuth,(req,res,next)=>{
             });
 
         }else{
+
             res.status(409).json({
                 "message":"Category Allready Exists"
             });

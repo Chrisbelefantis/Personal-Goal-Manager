@@ -23,7 +23,7 @@ Some of the packages used are mentioned below:
 
 | Package | Description |
 | ----------- | ----------- |
-| React Router | In order to implemet the different Routes of the application |
+| React Router | In order to implement the different Routes of the application |
 | React Redux | I use Redux store for all the authentication information shared in the components|
 | Redux Thunk | For dispatching asynchronous actions |
 | Axios | For the http requests at the API |

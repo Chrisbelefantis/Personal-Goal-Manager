@@ -52,7 +52,25 @@ and is used for the access at the protected routes.
 The API is communicating with a **mongoDB database** hosted in the mongoDB Cloud (Atlas)
 
 
+# DevOps
 
+The application is hosted at the **Amazon Web Services (AWS)**
+
+* The API is running in a **EC2 instance**
+* The React app is hosted in an **S3 Bucket**
+
+Also I use a **Buddy deployment pipeline** which I trigger manually when I push a new update at the master branch of the react-app.
+
+# How to run it locally
+
+1. Clone the repository
+2. At the axios-instance.js file change the baseURL of the API to http://localhost:3001
+3. Provide the enviromental variables: 
+  * MONGO_ATLAS_PSW which is the password for the mongodb Cloud databse
+  * JWT_KEY which is used for the contruction of the JWT.
+  
+ 4. Run the start-api.bat
+ 5. Run the start-react.bat
 
 
 

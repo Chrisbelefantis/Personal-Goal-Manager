@@ -28,3 +28,33 @@ Some of the packages used are mentioned below:
 | Redux Thunk | For dispatching asynchronous actions |
 | Axios | For the http requests at the API |
 
+
+
+# Back-End
+
+For the back-end of my application I created **my own API** using nodeJS and the Express framework. You can find the Postman documentation for the API [here](https://documenter.getpostman.com/view/12163449/TVRn36nm#intro). Below we mention the different routes of the API:
+
+| Type | Route |
+| ----------- | ----------- |
+| POST | /users/signup |
+| POST | /users/login |
+| POST | /categories |
+| GET | /categories |
+| DEL | /categories/:id |
+| POST | /goals |
+| GET | /goals |
+| DEL | /goals/:id |
+| PATCH | /goals/:id |
+
+For the authentication we use a JSON  Web Token which is generated during the signup or the login of the user
+and is used for the access at the protected routes.
+
+The API is communicating with a **mongoDB database** hosted in the mongoDB Cloud (Atlas)
+
+
+
+
+
+
+
+

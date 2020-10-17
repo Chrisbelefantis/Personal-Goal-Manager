@@ -63,14 +63,15 @@ Also I use a **Buddy deployment pipeline** which I trigger manually when I push 
 
 # How to run it locally
 
-1. Clone the repository
-2. At the axios-instance.js file change the baseURL of the API to http://localhost:3001
-3. Provide the enviromental variables: 
-  * MONGO_ATLAS_PSW which is the password for the mongodb Cloud databse
+1. Clone the repository.
+2. Run npm install to both api and react-app folder.
+3. At the axios-instance.js file change the baseURL of the API to http://localhost:3001
+4. Provide the enviromental variables: 
+  * MONGO_ATLAS_PSW which is the password for the mongodb Cloud databse.
   * JWT_KEY which is used for the contruction of the JWT.
   
- 4. Run the start-api.bat
- 5. Run the start-react.bat
+5. Run the start-api.bat.
+6. Run the start-react.bat.
 
 
 

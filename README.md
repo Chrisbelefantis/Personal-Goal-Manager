@@ -8,8 +8,8 @@
 # Introduction
 
 This application is a tool that will help you keep track of your goals. The aim of the project first of all was to use it
-myself, but down the road I decided to add authentication and share with my friends trying to motivate them towards setting
-goals and personal development. Also it was a very good opportunity for me to make use of my react knowledge in practical
+myself, but down the road I decided to add authentication and share it with my friends trying to motivate them towards setting
+goals and personal development. Also it was a very good opportunity for me to make use of my react knowledge in a practical
 way.
 
 # Front-End

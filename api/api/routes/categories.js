@@ -22,9 +22,9 @@ router.get('/',checkAuth,(req,res,next)=>{
 
 router.post('/',checkAuth,(req,res,next)=>{
 
-    console.log(req.userData.userId);
+    
     const newCategory = new Category({
-        _id:mongoose.Types.ObjectId(),
+        _id: mongoose.Types.ObjectId(),
         title: req.body.title,
         user: req.userData.userId
     });
@@ -32,6 +32,7 @@ router.post('/',checkAuth,(req,res,next)=>{
     Category.find({title: req.body.title, user: req.userData.userId})
     .exec()
     .then(data=>{
+        console.log(data,"data");
         if(data.length===0){
      
             newCategory.save()

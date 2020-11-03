@@ -188,11 +188,12 @@ router.patch('/:goalID',checkAuth,(req,res,next)=>{
 router.delete('/:goalID',checkAuth,(req,res,next)=>{
 
     const id = req.params.goalID;
-
+    console.log("fuck1",id,req.userData.userId);
     Goal.findOne({_id: id,user: req.userData.userId})
     .exec()
     .then(result=>{
         if(result){
+            console.log("fuck2");
             Goal.deleteOne({_id: id})
             .then(message=>{
                 res.status(200).json({

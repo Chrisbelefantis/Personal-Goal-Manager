@@ -14,7 +14,7 @@ way.
 
 # Front-End
 
-For the styling I didnt use any framework so I had to first **design the app** and then procceed to the implementation phase.
+For the styling I didn’t  use any framework so I had to first **design the app** and then proceed to the implementation phase.
 
 > The design is **responsive** and **mobile friendly**.
 

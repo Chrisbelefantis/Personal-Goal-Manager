@@ -9,6 +9,7 @@ const goalsRoutes = require('./api/routes/goals');
 const categoriesRoutes = require('./api/routes/categories');
 const userRoutes = require('./api/routes/user');
 
+
 mongoose.connect('mongodb+srv://chrisbelefantis:'+process.env.MONGO_ATLAS_PSW+'@react-app-cluster.bkdid.mongodb.net/goal-manager-app?retryWrites=true&w=majority', 
 {
     useNewUrlParser: true,

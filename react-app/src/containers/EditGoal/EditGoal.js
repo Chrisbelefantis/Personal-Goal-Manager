@@ -120,15 +120,16 @@ class EditGoal extends Component{
         });
 
         let editedGoal = {};
-
+     
         
         for(let key in this.state.editForm){
             let value = this.state.editForm[key].elementConfig.value;
-            if(value!=='')
+            if(value!=='' || key==='description')
             editedGoal[key] = value;
         }
 
         
+
         axios.patch('/goals/'+this.props.match.params.id,editedGoal)
         .then(res=>{
             this.props.update();

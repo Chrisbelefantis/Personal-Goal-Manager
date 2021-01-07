@@ -182,7 +182,6 @@ class NewGoal extends Component{
                 let updatedgoalForm = {...this.state.goalForm};
                 let updatedSelectedElement = {...updatedgoalForm[key]};
 
-             
                 updatedSelectedElement.elementConfig.value = event.target.value;
                 updatedSelectedElement.validity = this.checkValidity(event.target.value,updatedSelectedElement.validation);
                 updatedSelectedElement.touched = true;
@@ -326,6 +325,7 @@ class NewGoal extends Component{
                     {!this.state.submiting ?
                         <React.Fragment>
                             <h2>SET YOUR NEXT GOAL</h2>
+                            
                             <p>
                                 Choose a clear and specific goal in the
                                 category of your choice. Always try hitting

@@ -45,7 +45,7 @@
   @media only screen and (min-width: 600px) {
     .GoalsPanel{
       width: 580px;
-      height: 450px;
+      height: calc(100vh - 270px);
       margin: 70px auto 30px auto;
 
     }
@@ -54,7 +54,7 @@
   @media only screen and (min-width: 992px) {
     .GoalsPanel{
       width: 650px;
-      height: 500px;
+      
       margin: 70px auto 30px auto;
     }
   }
@@ -63,7 +63,6 @@
   @media only screen and (min-width: 1200px) {
     .GoalsPanel{
       width: 800px;
-      height: 500px;
       margin: 70px auto 30px auto;
     }
   }
@@ -71,4 +70,3 @@
 
 
 
-  

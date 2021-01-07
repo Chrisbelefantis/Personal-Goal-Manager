@@ -1,11 +1,12 @@
 .NewGoal {
     box-sizing: border-box;
     width: 80%;
-    height: 550px;
+    height: auto;
     padding: 20px;
     margin: 70px auto 0 auto;
     border-radius: 6px;
-    overflow-y: scroll;
+    
+
   
 }
 
@@ -30,9 +31,14 @@
 
 @media only screen and (min-width: 600px) {
     .NewGoal{
+      height: auto;
       width: 580px;
-      height: 600px;
-      margin: 70px auto 60px auto;
+      margin: 0;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
       border: 5px solid rgb(77, 109, 154,0.3);
 
     }
@@ -41,9 +47,7 @@
   @media only screen and (min-width: 992px) {
     .NewGoal{
       width: 650px;
-      height: 600px;
-      margin: 70px auto 60px auto;
-      border: 5px solid rgb(77, 109, 154,0.3);
+      
     }
   }
 
@@ -51,9 +55,7 @@
   @media only screen and (min-width: 1200px) {
     .NewGoal{
       width: 800px;
-      height: 600px;
-      margin: 70px auto 60px auto;
-      border: 5px solid rgb(77, 109, 154,0.3);
+      
     }
   }
 

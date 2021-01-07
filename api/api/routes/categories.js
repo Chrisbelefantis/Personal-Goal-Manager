@@ -61,8 +61,46 @@ router.post('/',checkAuth,(req,res,next)=>{
     });
 });
 
+router.patch('/:categoryID',checkAuth,(req,res)=>{
+    
+    const categoryId = req.params.categoryID;
+    const userId = req.userData.userId;
+    const newTitle = req.body.title;
+    
 
-router.delete('/:categoryID',checkAuth,(req,res,next)=>{
+    Category.findOne({_id : categoryId})
+    .exec()
+    .then(result=>{
+        if(result){
+            Category.updateOne({_id:categoryId,user:userId},{$set:{title:newTitle}})
+            .exec()
+            .then(result=>{
+                res.status(200).json({
+                    message:"Category Updated",
+                })
+            })
+            .catch(err=>{
+                res.status(500).json({
+                    error: err
+                });
+            })
+        }
+        else{
+            res.status(404).json({
+                "message":"There is no such category"
+            });
+        }
+    })
+    .catch(err=>{
+        res.status(500).json({
+            error: err
+        });
+    })
+
+
+});
+
+router.delete('/:categoryID',checkAuth,(req,res)=>{
 
     const id = req.params.categoryID;
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import GoalCategory from '../../../hoc/GoalCategory/GoalCategory'
+import GoalCategory from '../GoalSet/GoalCategory/GoalCategory';
 import IndividualGoal from './IndividualGoal/IndividualGoal';
 
 
@@ -24,7 +24,10 @@ const goalSet =(props)=>{
 
     return(
 
-        <GoalCategory title = {props.category}>
+        <GoalCategory 
+            title = {props.category}
+            categoryId = {props.id}
+        >
             {goals}
         </GoalCategory>
 

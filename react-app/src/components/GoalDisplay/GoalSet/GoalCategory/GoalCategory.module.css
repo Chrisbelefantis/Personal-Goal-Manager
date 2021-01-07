@@ -1,0 +1,19 @@
+
+.GoalCategory h2{
+    color: #5C7EAD;
+    margin: 0px 0px 8px 0px;
+    width: fit-content;
+}
+
+.GoalCategory h2:hover{
+    cursor: pointer;
+    background-color: rgba(77, 109, 154, 0.103);
+    
+    border-radius: 2px;
+    
+}
+
+.GoalCategory{
+    margin-bottom: 20px ;
+}
+

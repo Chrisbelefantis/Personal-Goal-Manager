@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 import {Route,Redirect} from 'react-router-dom';
 import * as actions from '../../store/actions/actionCreators';
 
+
 class GoalsPanel extends Component {
 
 
@@ -166,7 +167,7 @@ class GoalsPanel extends Component {
             .then(result=>{
             
                 if(result.data){
-
+                  
                     this.setState(
                         {
                             ...result.data,
@@ -205,8 +206,9 @@ class GoalsPanel extends Component {
                 content =  this.state.categories.map(categ=>{ 
                     return (
                             <GoalSet 
-                            key = {categ.title}
+                            key = {categ.id}
                             category = {categ.title}
+                            id = {categ.id}
                             goals = {categ.content}
                             delete = {this.deleteGoalHandler}
                             checked={this.goalCheckToggle}

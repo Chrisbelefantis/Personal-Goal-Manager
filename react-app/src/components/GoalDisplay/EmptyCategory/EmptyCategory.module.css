@@ -1,0 +1,22 @@
+.EmptyCategory{
+    background-color: rgba(182, 216, 255, 0.466);
+    margin-bottom: 5px;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between ;
+}
+
+.EmptyCategory div{
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.EmptyCategory p{
+    margin-top: 6px;
+    padding-right: 15px;
+}

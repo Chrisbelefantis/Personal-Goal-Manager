@@ -1,0 +1,11 @@
+.ToogleEmptyCategories{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.ToogleEmptyCategories h4{
+    margin-top: 0;
+    padding-right: 10px;
+}
+

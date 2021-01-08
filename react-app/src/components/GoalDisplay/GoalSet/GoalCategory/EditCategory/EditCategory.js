@@ -37,7 +37,8 @@ const editGoal=(props)=>{
                     color:'#5C7EAD',
                     fontWeight: 'bolder',
                     border:'transparent',
-                    outline:'none'
+                    outline:'none',
+                    backgroundColor: 'inherit'
                 }}
                 />
             <Button btnType='success' clicked={saveHandler}>Save</Button>

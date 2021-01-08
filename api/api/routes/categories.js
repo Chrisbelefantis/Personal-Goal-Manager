@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 
+const Goal = require('../models/goal');
 const Category = require('../models/category');
 
 const checkAuth = require('../../middleware/check-auth');
@@ -102,32 +103,30 @@ router.patch('/:categoryID',checkAuth,(req,res)=>{
 
 router.delete('/:categoryID',checkAuth,(req,res)=>{
 
-    const id = req.params.categoryID;
-
-    Category.findOne({_id: id})
+    const categoryID = req.params.categoryID;
+    
+    Goal.find({category: categoryID})
     .exec()
-    .then(result=>{
-        if(result){
-            Category.deleteOne({_id: id})
-            .then(message=>{
-                res.status(200).json({
-                    "message":"Category Deleted"
-                });
-            })
-            .catch(err=>{
-                res.status(500).json({
-                    "Error": err
-                });
-            });
-        }else{
-            res.status(404).json({
-                "message":"There is no such category"
-            });
+    .then(data=>{
+        
+        const goalsId = []
+        for(let i=0; i<data.length; i++){
+            goalsId.push(data[i]._id);            
         }
 
-
-    });
-
+        Goal.deleteMany({_id: {$in: goalsId}})
+        .then(data=>{
+            Category.deleteOne({_id:categoryID})
+            .then(data=>{
+                res.status(200).json({
+                    message:'success'
+                });
+            })
+        })
+    })
+    .catch(err=>{
+        console.log(err);
+    })
 });
 
 

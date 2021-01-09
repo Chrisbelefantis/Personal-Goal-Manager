@@ -17,7 +17,7 @@ const goalSet =(props)=>{
                 goalDueDate = {goal.dueDate}
                 checked = {goal.isCompleted}
                 expanded = {goal.isExpanded}
-                deleteGoal = {()=>props.delete(props.category,goal.id)}
+                deleteGoal = {()=>props.deleteGoal(props.category,goal.id)}
                 toggleCheck = {()=>props.checked(props.category,goal.id)}
                 toogleContent={()=>props.expanded(props.category,goal.id)}/>
             );
@@ -30,6 +30,7 @@ const goalSet =(props)=>{
         <GoalCategory 
             title = {props.category}
             categoryId = {props.id}
+            onDelete={()=>props.deleteCategory(props.id)}
         >
             {goals}
         </GoalCategory>

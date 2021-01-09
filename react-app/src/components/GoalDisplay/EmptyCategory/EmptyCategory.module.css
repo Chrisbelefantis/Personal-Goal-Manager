@@ -2,21 +2,43 @@
     background-color: rgba(182, 216, 255, 0.466);
     margin-bottom: 5px;
     border-radius: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 25px;
+    padding: 25px 5px 12px 5px;
     display: flex;
     flex-direction: row;
     justify-content: space-between ;
+    height: 52px;
 }
 
 .EmptyCategory div{
     display: flex;
     flex-direction: row;
+    margin-right: 15px;
     
 }
 
 .EmptyCategory p{
-    margin-top: 6px;
-    padding-right: 15px;
+    display: none;
 }
+
+.EmptyCategory button{
+    height: 34px;
+    margin-top: 0;
+}
+
+.EmptyCategory .Trashcan{
+    padding-top: 100px;
+}
+
+@media only screen and (min-width: 600px) {
+    .EmptyCategory p{
+        display: inline;
+        margin-top: 6px;
+        padding-right: 15px;
+    }
+    
+    .EmptyCategory div{
+        
+        margin-right: 5px;
+    
+    }    
+  }

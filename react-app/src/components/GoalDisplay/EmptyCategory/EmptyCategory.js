@@ -10,7 +10,8 @@ const emptyCategory=(props)=>{
             <GoalCategory 
             title={props.category}
             categoryId = {props.id}
-            />
+            onDelete = {()=>props.deleteCategory(props.id)} 
+            />  
             
             <div>
                 <p>Add new goal</p>

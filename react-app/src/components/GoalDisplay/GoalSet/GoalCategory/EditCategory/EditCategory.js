@@ -1,9 +1,10 @@
 import React from 'react'
 import Button from '../../../../UI/Button/Button';
 import AutosizeInput from 'react-input-autosize';
+import Trashcan from '../../../../UI/GoalHeading/Trashcan/Trashcan';
 import axios from '../../../../../axios-instance';
 
-const editGoal=(props)=>{
+const editCategory=(props)=>{
 
 
     const title = props.text.charAt(0).toUpperCase() + props.text.slice(1)
@@ -15,15 +16,14 @@ const editGoal=(props)=>{
     const saveHandler=()=>{
         
         axios.patch('/categories/'+props.id,{title:title})
-        .then(res=>{
-            console.log(res);
+        .then(()=>{
+            props.save(false);
         })
         .catch(err=>{
             console.log(err);
         })
-        props.save(false);
-
     }
+
 
     return(
         <React.Fragment>
@@ -42,8 +42,9 @@ const editGoal=(props)=>{
                 }}
                 />
             <Button btnType='success' clicked={saveHandler}>Save</Button>
+            <Trashcan  click = {props.categoryDelete}/>
         </React.Fragment>
     );
 }
 
-export default editGoal;
+export default editCategory;

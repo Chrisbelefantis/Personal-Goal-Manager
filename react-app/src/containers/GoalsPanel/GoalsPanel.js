@@ -8,7 +8,7 @@ import PlusIcon from '../../components/UI/PlusIcon/PlusIcon';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import QuotePanel from '../../components/QuotePanel/QuotePanel';
 import EditGoal from '../EditGoal/EditGoal';
-import ToogleEmptyCategories from '../../components/GoalDisplay/ToogleEmptyCategories/ToogleEmptyCategories';
+import Toggler from '../../components/UI/Toggler/Toggler';
 import {connect} from 'react-redux';
 import {Route,Redirect} from 'react-router-dom';
 import * as actions from '../../store/actions/actionCreators';
@@ -17,16 +17,13 @@ import * as actions from '../../store/actions/actionCreators';
 class GoalsPanel extends Component {
 
 
-    //Goals changed starts with true in order
-    //to be able to load the goals after the autoLogIn
-    //Because the local storage is checked after all 
-    //components have been mounted
+    
     state = {
         categories : [],
         emptyCategories:[],
-        showEmptyCategories: false,
+        showEmptyCategories: true,
         dataFetched: false,
-        goalsChanged: true
+        goalsChanged: false
     };
 
   
@@ -132,6 +129,8 @@ class GoalsPanel extends Component {
 
     }
 
+
+
     deleteGoalHandler=(category,id)=>{
         
         let categoryIndex = this.state.categories.findIndex(categ=>{
@@ -161,6 +160,16 @@ class GoalsPanel extends Component {
 
 
     }
+
+    deleteCategoryHandler=(id)=>{
+        axios.delete('/categories/'+id)
+        .then(()=>{
+            this.raiseGoalChangedFlag();
+        })
+
+    }
+
+
 
     raiseGoalChangedFlag=()=>{
         this.setState({
@@ -198,9 +207,14 @@ class GoalsPanel extends Component {
 
     componentDidUpdate=()=>{
 
-        if(!this.state.dataFetched && this.props.isLoggedIn){
+        if(!this.state.dataFetched){
             this.fetchAllData();
-
+        }
+        else if(this.state.goalsChanged){
+            this.fetchAllData();
+            this.setState({
+                goalsChanged:false
+            });
         }
     }
 
@@ -223,7 +237,8 @@ class GoalsPanel extends Component {
                         category = {categ.title}
                         id = {categ.id}
                         goals = {categ.content}
-                        delete = {this.deleteGoalHandler}
+                        deleteGoal = {this.deleteGoalHandler}
+                        deleteCategory = {this.deleteCategoryHandler}
                         checked={this.goalCheckToggle}
                         expanded={this.goalExpandToggle}
                         />
@@ -238,6 +253,7 @@ class GoalsPanel extends Component {
                             key={categ._id}
                             category={categ.title}
                             id={categ._id}
+                            deleteCategory = {this.deleteCategoryHandler}
                             />
 
                         )
@@ -247,8 +263,9 @@ class GoalsPanel extends Component {
                 let emptyCategoriesToogler = null;
                 if(this.state.emptyCategories.length>0){
 
-                    emptyCategoriesToogler = <ToogleEmptyCategories 
+                    emptyCategoriesToogler = <Toggler 
                         key = 'toogler'
+                        text = 'Show Empty Categories'
                         changed={this.emptyCategoriesHandler}
                         isChecked={this.state.showEmptyCategories}/>
 

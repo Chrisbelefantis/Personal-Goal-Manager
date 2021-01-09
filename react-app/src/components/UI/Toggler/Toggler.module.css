@@ -1,10 +1,10 @@
-.ToogleEmptyCategories{
+.Toggler{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 }
 
-.ToogleEmptyCategories h4{
+.Toggler h4{
     margin-top: 0;
     padding-right: 10px;
 }

@@ -7,7 +7,8 @@ import classes from './GoalCategory.module.css'
 const GoalCategory = (props)=>{
 
     const [editMode,setEditMode] = useState(false);
-    const [title,setTitle] = useState(props.title)
+    const [title,setTitle] = useState(props.title);
+
 
     const clickHandler=()=>{
 
@@ -19,10 +20,15 @@ const GoalCategory = (props)=>{
         content = <EditCategory 
             text = {title} 
             id = {props.categoryId}
+            categoryDelete = {props.onDelete}
             changed = {setTitle}
             save = {setEditMode}
+        
         />;
     }
+
+    
+
    
     return(
         <div className={classes.GoalCategory}>

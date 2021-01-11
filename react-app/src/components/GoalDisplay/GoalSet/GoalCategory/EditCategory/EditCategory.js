@@ -42,10 +42,13 @@ const editCategory=(props)=>{
                     backgroundColor: 'inherit'
                 }}
                 />
+            <div className={classes.EditControls}>
             <Button btnType='success' clicked={saveHandler}>Save</Button>
             <Trashcan  
                 click = {props.categoryDelete}
                 isGoalTrashcan={false}/>
+            </div>
+
         </div>
     );
 }

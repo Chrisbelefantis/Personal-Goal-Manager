@@ -1,7 +1,5 @@
 .QuotePanel{
-    width: 75%;
-    margin: 0px auto;
-    text-align: center;
+    display: none;
 }
 
 .Heading h3{
@@ -27,6 +25,9 @@
 
 @media only screen and (min-width: 600px) {
     .QuotePanel{
+      display: block;
+      margin: 0px auto;
+      text-align: center;
       width: 580px;
     }
   }

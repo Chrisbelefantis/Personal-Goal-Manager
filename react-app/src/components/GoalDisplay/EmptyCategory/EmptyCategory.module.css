@@ -2,19 +2,24 @@
     background-color: rgba(182, 216, 255, 0.466);
     margin-bottom: 2px;
     border-radius: 5px;
-    padding: 25px 5px 10px 5px;
+    padding: 25px 5px 5px 5px;
     display: flex;
     flex-direction: row;
     justify-content: space-between ;
-    height: 52px;
+    height: auto;
+  
 }
 
-.EmptyCategory div{
-    display: flex;
-    flex-direction: row;
+.EmptyCategory .AddNewGoal{
+    display: inline-block;
     margin-right: 15px;
-    
-    
+    padding-top: 5px;
+ 
+}
+
+
+.EmptyCategory h2{
+    padding-top: 3px;
 }
 
 .EmptyCategory p{
@@ -36,9 +41,11 @@
         padding-right: 15px;
     }
     
-    .EmptyCategory div{
+    .EmptyCategory .AddNewGoal{
         
+        display: flex;
+        flex-direction: row;
         margin-right: 5px;
-    
+        
     }    
   }

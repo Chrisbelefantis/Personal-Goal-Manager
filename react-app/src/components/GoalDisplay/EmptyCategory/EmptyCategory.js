@@ -13,7 +13,7 @@ const emptyCategory=(props)=>{
             onDelete = {()=>props.deleteCategory(props.id,true)} 
             />  
             
-            <div>
+            <div className={classes.AddNewGoal}>
                 <p>Add new goal</p>
                 <PlusIcon size='small'/>
             </div>

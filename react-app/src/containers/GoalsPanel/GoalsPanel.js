@@ -140,32 +140,66 @@ class GoalsPanel extends Component {
         let goalIndex = this.state.categories[categoryIndex].content.findIndex(goal=>{
             return goal.id === id
         });
-
+ 
         let categories = [...this.state.categories];
-
         categories[categoryIndex].content.splice(goalIndex,1);
-
-
-    
+        
+        //Checking if category is now empty
+      
         if(categories[categoryIndex].content.length===0){
+            let emptyCategory = {
+                title :categories[categoryIndex].title,
+                _id: categories[categoryIndex].id
+            }
             categories.splice(categoryIndex,1);
+            this.setState({
+                categories: categories,
+                emptyCategories: [...this.state.emptyCategories,emptyCategory]
+            },()=>{
+                axios.delete('/goals/'+id)
+            });
+        }
+        else{
+            this.setState({
+                categories: categories
+                
+            },()=>{
+                axios.delete('/goals/'+id)
+            });
+
         }
 
-
-        this.setState({
-            categories: categories
-        },()=>{
-            axios.delete('/goals/'+id)
-        });
+       
 
 
     }
 
-    deleteCategoryHandler=(id)=>{
+    deleteCategoryHandler=(id,isEmpty)=>{
+
+        //Update the state in order to change the DOM
+        if(isEmpty){
+            let categoryIndex = this.state.emptyCategories.findIndex(categ=>{
+                return categ._id === id
+            });
+            let emptyCategories = [...this.state.emptyCategories];
+            emptyCategories.splice(categoryIndex,1);
+            this.setState({
+                emptyCategories: emptyCategories
+            })
+        }else{
+            let categoryIndex = this.state.emptyCategories.findIndex(categ=>{
+                return categ.id === id
+            });
+            let categories = [...this.state.categories];
+            categories.splice(categoryIndex,1);
+            this.setState({
+                categories: categories
+            })
+        }
+
+        //Delete the category in the database
         axios.delete('/categories/'+id)
-        .then(()=>{
-            this.raiseGoalChangedFlag();
-        })
+       
 
     }
 

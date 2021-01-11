@@ -1,15 +1,29 @@
-.Trashcan{
+.GoalTrashcan{
     background-color: #90a1b9;
+    border-radius: 10px;
     margin-right: 5px;
     padding: 5.5px 5.3px 3px 5px;
-
     cursor: pointer;
     display: inline;
 
 }
 
-.Trashcan:hover{
+.GoalTrashcan:hover{
     background-color: #a0abb9;
 
 
 }
+
+.CategoryTrashcan{
+    background-color: transparent;
+    cursor: pointer;
+    display: inline;
+
+}
+
+
+.CategoryTrashcan:hover{
+    background-color: transparent;
+    border-bottom: 1px solid black;
+}
+

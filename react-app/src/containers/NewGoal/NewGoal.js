@@ -129,7 +129,6 @@ class NewGoal extends Component{
 
             axios.post('/categories',newCategory)
             .then(res=>{
-                console.log("mpika2");
                 newGoal['category'] = res.data.category._id;
                 axios.post('/goals',newGoal)
                 .then(res=>{

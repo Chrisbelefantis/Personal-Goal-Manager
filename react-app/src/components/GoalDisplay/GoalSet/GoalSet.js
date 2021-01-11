@@ -30,7 +30,7 @@ const goalSet =(props)=>{
         <GoalCategory 
             title = {props.category}
             categoryId = {props.id}
-            onDelete={()=>props.deleteCategory(props.id)}
+            onDelete={()=>props.deleteCategory(props.id,false)}
         >
             {goals}
         </GoalCategory>

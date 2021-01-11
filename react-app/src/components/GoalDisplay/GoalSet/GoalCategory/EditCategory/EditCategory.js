@@ -3,6 +3,7 @@ import Button from '../../../../UI/Button/Button';
 import AutosizeInput from 'react-input-autosize';
 import Trashcan from '../../../../UI/GoalHeading/Trashcan/Trashcan';
 import axios from '../../../../../axios-instance';
+import classes from './EditCategory.module.css';
 
 const editCategory=(props)=>{
 
@@ -26,7 +27,7 @@ const editCategory=(props)=>{
 
 
     return(
-        <React.Fragment>
+        <div className={classes.EditCategory}>
             <AutosizeInput 
                 type='text' 
                 value = {title} 
@@ -42,8 +43,10 @@ const editCategory=(props)=>{
                 }}
                 />
             <Button btnType='success' clicked={saveHandler}>Save</Button>
-            <Trashcan  click = {props.categoryDelete}/>
-        </React.Fragment>
+            <Trashcan  
+                click = {props.categoryDelete}
+                isGoalTrashcan={false}/>
+        </div>
     );
 }
 

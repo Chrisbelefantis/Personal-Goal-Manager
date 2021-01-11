@@ -20,7 +20,9 @@ const goalHeading =(props)=>{
             <ClickableDiv  click = {props.changeContentVisibility}>
                 <span className={checkedStyle}> <p>{props.title}</p> </span>
             </ClickableDiv>
-            <Trashcan click = {props.delete}/>
+            <Trashcan 
+                click = {props.delete}
+                isGoalTrashcan={true}/>
             <Pensil 
                 click = {()=>props.history.push(
                         props.match.path+'/edit/'+props.goalId

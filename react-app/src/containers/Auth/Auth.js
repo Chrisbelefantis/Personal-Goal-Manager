@@ -139,7 +139,8 @@ class Auth extends Component{
             
             <div className={classes.Auth}>
                 {!this.props.loading ?
-                <React.Fragment>
+                <form>
+
                     {redirect}
                     {inputElementsArray.map(element=>(
                     <Input
@@ -153,7 +154,15 @@ class Auth extends Component{
                         changed = {(event)=>this.onChangeHandler(event,element.elementLabel)}/>
 
                     ))}
-                </React.Fragment>:<Spinner/>}
+                    {/* Hidden input for enter to work */}
+                    <input 
+                        type='submit' 
+                        disabled={!this.state.formIsValid} 
+                        onClick={this.buttonClickedHandler}
+                        style={{display:'none'}}>
+                    </input>
+
+                </form>:<Spinner/>}
                 <div className={classes.Button}> 
                     {this.props.error? <p>{this.props.error}</p>:null}
                     <Button
